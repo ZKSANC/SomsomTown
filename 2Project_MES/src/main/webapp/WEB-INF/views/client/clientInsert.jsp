@@ -39,6 +39,7 @@
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>
+
 <script type="text/javascript">
 	// 필수입력 제어	
 	function essential() {
@@ -61,9 +62,9 @@
 			return false;
 		}
 
-		if (document.fr.cli_business.value == "") {
-			alert("업태를 입력하세요.");
-			document.fr.cli_business.focus();
+		if (document.fr.cli_boss.value == "") {
+			alert("대표자명을 입력하세요.");
+			document.fr.cli_boss.focus();
 			return false;
 		}
 
@@ -73,9 +74,15 @@
 			return false;
 		}
 
-		if (document.fr.cli_boss.value == "") {
-			alert("대표자를 입력하세요.");
-			document.fr.cli_boss.focus();
+		if (document.fr.cli_tel.value == "") {
+			alert("대표전화를 입력하세요.");
+			document.fr.cli_tel.focus();
+			return false;
+		}
+
+		if (document.fr.cli_email.value == "") {
+			alert("이메일을 입력하세요.");
+			document.fr.cli_email.focus();
 			return false;
 		}
 
@@ -85,16 +92,22 @@
 			return false;
 		}
 
-		if (document.fr.cli_addr.value == "") {
+		if (document.fr.cli_phone.value == "") {
+			alert("담당자 전화번호를 입력하세요.");
+			document.fr.cli_phone.focus();
+			return false;
+		}
+
+		if (document.fr.cli_postno.value == "") {
 			alert("주소를 입력하세요.");
-			document.fr.cli_addr.focus();
+			document.fr.cli_postno.focus();
 			return false;
 		}
 
 		if ($('.spanResult').text() !== "사용 가능한 사업자번호입니다.") {
-		    alert("사업자번호 중복확인을 해주세요.");
-		    return false;
-		  }
+			alert("사업자번호 중복확인을 해주세요.");
+			return false;
+		}
 
 		alert("추가 완료되었습니다.");
 
@@ -127,7 +140,38 @@
 									});
 						});
 	});
+</script>
 
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+	// 카카오 주소 API
+	function sample6_execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var addr = ''; // 주소 변수
+						var extraAddr = ''; // 참고항목 변수
+
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('zipcode').value = data.zonecode;
+						document.getElementById("addr").value = addr;
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("addr_dtl").focus();
+					}
+				}).open();
+	}
 </script>
 
 </head>
@@ -172,56 +216,169 @@
 					<div class="col-lg">
 						<div class="card">
 							<div class="card-header">
-								<strong class="card-title">거래처</strong>
+								<strong class="card-title">거래처 등록</strong>
 							</div>
 							<div class="card-body">
 								<form
 									action="${pageContext.request.contextPath}/client/insertPro"
-									method="post" name="fr" onsubmit="return essential()">
-									<table id="bootstrap-data-table"
-										class="table table-striped table-bordered">
-										<thead class="thead-dark">
-											<tr>
-												<th scope="col">거래처코드</th>
-												<th scope="col">거래처명</th>
-												<th scope="col">구분</th>
-												<th scope="col">사업자번호</th>
-												<th scope="col">업태</th>
-												<th scope="col">종목</th>
-												<th scope="col">대표자</th>
-												<th scope="col">담당자</th>
-												<th scope="col">주소</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>자동생성</td>
-												<td><input type="text" name="cli_nm"
-													placeholder="예)서울원단" style="width: 105px;"></td>
-												<td><select name="cli_type" id="select"
-													class="form-control" style="width: 100px;">
-														<option value="협력사">협력사</option>
-														<option value="고객사">고객사</option>
-														<option value="자사">자사</option>
-												</select></td>
-												<td><input type="text" pattern="[0-9]+" name="cli_num"
-													class="cli_num" style="width: 100px;" placeholder="10자리 숫자"
-													maxlength="10" onblur="$('.dup').click()"></td>
-												<td><input type="text" name="cli_business"
-													style="width: 110px;" placeholder="예)제조업"></td>
-												<td><input type="text" name="cli_prod"
-													style="width: 75px;" placeholder="예)원단"></td>
-												<td><input type="text" name="cli_boss"
-													style="width: 60px;"></td>
-												<td><input type="text" name="cli_emp"
-													style="width: 60px;"></td>
-												<td><input type="text" name="cli_addr"
-													style="width: 110px;" placeholder="예)서울 종로구"></td>
-											</tr>
-										</tbody>
-									</table>
-									<input type="button" class="btn btn-primary dup"
-										value="사업자번호 중복확인"> &nbsp;<span class="spanResult"></span>
+									method="post" name="fr" onsubmit="return essential()"
+									class="form-horizontal">
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label class=" form-control-label">거래처코드</label>
+										</div>
+										<div class="col-12 col-md-9">
+											<p class="form-control-static">자동생성</p>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">거래처명<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_nm"
+												placeholder="예) 서울원단" class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="select" class=" form-control-label">거래처
+												구분<span style="color: red">*</span>
+											</label>
+										</div>
+										<div class="col-12 col-md-9">
+											<select name="cli_type" id="select" class="form-control">
+												<option value="협력사">협력사</option>
+												<option value="고객사">고객사</option>
+												<option value="자사">자사</option>
+											</select>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">사업자번호<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" pattern="[0-9]+" name="cli_num"
+												placeholder="10자리 숫자. 예) 5528700875"
+												class="form-control cli_num" maxlength="10"> 
+												<input type="button" class="btn btn-secondary dup" value="중복확인">
+												<small class="spanResult"></small>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">대표자명<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_boss"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="select" class=" form-control-label">업태<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<select name="cli_business" id="select" class="form-control">
+												<option value="제조업">제조업</option>
+												<option value="도매 및 소매업">도매 및 소매업</option>
+												<option value="기타">기타</option>
+											</select>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">종목<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_prod"
+												placeholder="예) 원단" class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">대표전화<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_tel"
+												pattern="[0-9]+" placeholder="예) 0512368896"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">이메일<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="cli_email" name="cli_email"
+												placeholder="예) mimitoy@gmail.com" class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">담당자<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_emp"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">담당자
+												전화번호<span style="color: red">*</span>
+											</label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_phone"
+												pattern="[0-9]+" placeholder="예) 01069873295"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">Fax</label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="text" id="text-input" name="cli_fax"
+												pattern="[0-9]+" placeholder="예) 0511254493"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="text-input" class=" form-control-label">주소<span
+												style="color: red">*</span></label>
+										</div>
+										<div class="col-12 col-md-9">
+											<input type="button" class="btn btn-secondary"
+												onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+											<input type="text" id="zipcode" name="cli_postno"
+												placeholder="우편번호" class="form-control"> <input
+												type="text" id="addr" name="cli_addr" placeholder="주소"
+												class="form-control"> <input type="text"
+												id="addr_dtl" name="cli_addr2" placeholder="상세주소"
+												class="form-control">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col col-md-3">
+											<label for="textarea-input" class=" form-control-label">비고</label>
+										</div>
+										<div class="col-12 col-md-9">
+											<textarea name="cli_note" id="textarea-input" rows="9"
+												placeholder="기타 입력 사항" class="form-control"></textarea>
+										</div>
+									</div>
 									<div class="btn-div float-right">
 										<input type="submit" class="btn btn-primary" value="추가">
 										<input type="button" class="btn btn-secondary" value="취소"

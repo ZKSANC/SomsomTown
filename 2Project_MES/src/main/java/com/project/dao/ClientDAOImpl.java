@@ -72,4 +72,11 @@ public class ClientDAOImpl implements ClientDAO {
 		return sqlSession.selectOne(namespace + ".clientDupCheck", cli_num);
 	}
 
+	@Override
+	public ClientDTO getClientInfo(String cli_cd) {
+		System.out.println("ClientDAOImpl getClientInfo(cli_cd)");
+
+		return sqlSession.selectOne(namespace + ".getClientDetail", cli_cd);
+	}
+
 }

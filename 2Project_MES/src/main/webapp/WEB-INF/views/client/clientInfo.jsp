@@ -84,6 +84,13 @@
 			}
 		}
 	}
+
+	// 거래처 상세페이지 팝업창 
+	function clientDetail(cli_cd) {
+		window.open(
+				"${pageContext.request.contextPath }/client/clientDetail?cli_cd="
+						+ cli_cd, "clientDetail", "width=800,height=800");
+	}
 </script>
 </head>
 <body>
@@ -194,8 +201,7 @@
 									<strong class="card-title">거래처</strong>
 								</div>
 								<div class="card-body">
-									<table id="bootstrap-data-table"
-										class="table table-striped table-bordered">
+									<table id="hover_tb" class="table table-striped table-bordered">
 										<thead class="thead-dark">
 											<tr>
 												<!-- 사원이 아닐때 (관리자, 파트장) 삭제 권한  -->
@@ -213,42 +219,30 @@
 												<th scope="col">종목</th>
 												<th scope="col">대표자</th>
 												<th scope="col">담당자</th>
-												<th scope="col">주소</th>
-												<!-- 사원이 아닐때 (관리자, 파트장) 수정 권한  -->
-												<c:if test="${ ! empty sessionScope.emp_cd }">
-													<c:if test="${sessionScope.emp_position ne '사원' }">
-														<th scope="col"></th>
-													</c:if>
-												</c:if>
+												<th scope="col">대표전화</th>
+												<th scope="col">담당자 전화번호</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="clientDTO" items="${clientInfo }">
+											<c:forEach var="clientDTO" items="${clientInfo}">
 												<tr>
 													<!-- 사원이 아닐때 (관리자, 파트장) 삭제 권한  -->
-													<c:if test="${ ! empty sessionScope.emp_cd }">
-														<c:if test="${sessionScope.emp_position ne '사원' }">
+													<c:if test="${!empty sessionScope.emp_cd}">
+														<c:if test="${sessionScope.emp_position ne '사원'}">
 															<th scope="row"><input type="checkbox" name="chk"
-																id="chk" value="${clientDTO.cli_cd }"></th>
+																id="chk" value="${clientDTO.cli_cd}"></th>
 														</c:if>
 													</c:if>
-													<td>${clientDTO.cli_cd }</td>
-													<td>${clientDTO.cli_nm }</td>
-													<td>${clientDTO.cli_type }</td>
-													<td>${clientDTO.cli_num }</td>
-													<td>${clientDTO.cli_business }</td>
-													<td>${clientDTO.cli_prod }</td>
-													<td>${clientDTO.cli_boss }</td>
-													<td>${clientDTO.cli_emp }</td>
-													<td>${clientDTO.cli_addr }</td>
-													<!-- 사원이 아닐때 (관리자, 파트장) 수정 권한  -->
-													<c:if test="${ ! empty sessionScope.emp_cd }">
-														<c:if test="${sessionScope.emp_position ne '사원' }">
-															<td><input type="button" class="btn btn-secondary"
-																value="수정"
-																onclick="location.href='${pageContext.request.contextPath}/client/update?cli_cd=${clientDTO.cli_cd}'"></td>
-														</c:if>
-													</c:if>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_cd}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_nm}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_type}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_num}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_business}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_prod}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_boss}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_emp}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_tel}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_phone}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -313,6 +307,7 @@
 			</div>
 		</form>
 		<!-- .content -->
+
 
 		<div class="clearfix"></div>
 		<!-- 푸터 넣는 곳 -->
