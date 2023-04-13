@@ -66,16 +66,6 @@ public class ImatServiceImpl implements ImatService{
 		return imatDAO.getIomatList(pageDTO);
 	}
 
-//	@Override
-//	public List<ProductDTO> getImatprodList1(PageDTO pageDTO) {
-//		System.out.println("ImatServiceimpl getImatprodList1()");
-//		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
-//		int endRow = startRow+pageDTO.getPageSize()-1;
-//		pageDTO.setStartRow(startRow);
-//		pageDTO.setEndRow(endRow);
-//		System.out.println("ImatServiceImpl getImatCount()-1");
-//		return imatDAO.getImatprodList1(pageDTO);
-//	}
 
 	@Override
 	public List<ProductDTO> getImatprodList(PageDTO pageDTO) {
@@ -89,10 +79,10 @@ public class ImatServiceImpl implements ImatService{
 	}
 
 	@Override
-	public void deleteList(String imat_cd) {
+	public void deleteList(ImatDTO imatDTO) {
 		System.out.println("ImatServiceImpl deleteList()");
 
-		imatDAO.deleteList(imat_cd);
+		imatDAO.deleteList(imatDTO);
 	}
 
 
@@ -124,4 +114,10 @@ public class ImatServiceImpl implements ImatService{
 		imatDAO.updateImat(imatDTO);
 	}
 
+	@Override
+	public void updatImatdel(ImatDTO imatDTO) {
+		System.out.println("ImatServiceImpl updateimat()");
+
+		imatDAO.updateImat(imatDTO);
+	}
 }

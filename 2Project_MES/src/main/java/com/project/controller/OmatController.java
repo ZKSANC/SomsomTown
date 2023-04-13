@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.domain.OmatDTO;
-import com.project.domain.OmatDTO;
 import com.project.domain.PageDTO;
 import com.project.domain.ProductDTO;
 import com.project.service.OmatService;
@@ -59,13 +58,19 @@ public class OmatController {
 	// 가상주소 http://localhost:8080/SFunWeb/board/updatePro
 	@RequestMapping(value = "/omat/omatupdatePro", method = RequestMethod.POST)
 	public String omatupdatePro(OmatDTO omatDTO) {
-		System.out.println("OmatController omatupdatePro()");
-
+		System.out.println("OmatController /omat/omatupdatePro");
+		int iomat_count=omatDTO.getIomat_count();
+		System.out.println("iomat_count: "+iomat_count);
+		
+//		int omat_count=omatDTO.getOmat_count();
+//		omatDTO.setOmat_count(omat_count-iomat_count);
+		System.out.println("OmatController Omat_count:" + omatDTO.getOmat_count());
+		System.out.println(omatDTO.getOmat_cd());
 		OmatService.updateOmat(omatDTO);
 
-//		주소줄 변경하면서 이동
+		System.out.println("OmatController /omat/omatupdatePro finished");
 		return "redirect:/omat/omatbeList";
-//		return "redirect:/omat/omatbeList";
+//		return null;
 	}
 	
 	@RequestMapping(value = "/omat/omatpopPro", method = RequestMethod.GET)
@@ -212,8 +217,9 @@ public class OmatController {
 	public String deleteList(HttpServletRequest request, Model model) {
 		System.out.println("OmatController omatdelete()");
 		String omat_cd = request.getParameter("omat_cd");
-		OmatService.deleteList(omat_cd);
-
+		OmatDTO omatDTO = OmatService.getOmat(omat_cd);
+		OmatService.deleteList(omatDTO);
+		model.addAttribute("OmatDTO", omatDTO); 
 //		주소줄 변경하면서 이동
 		return "redirect:/omat/omatbeList";
 	}

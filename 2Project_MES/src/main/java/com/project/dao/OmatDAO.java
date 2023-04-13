@@ -19,7 +19,7 @@ public interface OmatDAO {
 	
 	public ProductDTO getProd(String prod_cd);
 
-	public void deleteList(String omat_cd);
+	public void deleteList(OmatDTO omatDTO);
 
 	public void insertOmat(OmatDTO omatDTO);
 
@@ -27,6 +27,5 @@ public interface OmatDAO {
 
 	public List<ProductDTO> getOmatprodList(PageDTO pageDTO);
 
-	List<ProductDTO> getOmatprodList1(PageDTO pageDTO);
 
 }

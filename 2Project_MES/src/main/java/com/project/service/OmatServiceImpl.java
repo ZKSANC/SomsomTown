@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.dao.OmatDAO;
 import com.project.domain.OmatDTO;
-
-import com.project.domain.OmatDTO;
-import com.project.domain.OmatDTO;
 import com.project.domain.PageDTO;
 import com.project.domain.ProductDTO;
 
@@ -54,16 +51,6 @@ public class OmatServiceImpl implements OmatService{
 		return omatDAO.getOmatbeList(pageDTO);
 	}
 
-	@Override
-	public List<ProductDTO> getOmatprodList1(PageDTO pageDTO) {
-		System.out.println("OmatServiceimpl getOmatprodList1()");
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
-		int endRow = startRow+pageDTO.getPageSize()-1;
-		pageDTO.setStartRow(startRow);
-		pageDTO.setEndRow(endRow);
-		System.out.println("OmatServiceImpl getOmatCount()-1");
-		return omatDAO.getOmatprodList1(pageDTO);
-	}
 
 	@Override
 	public List<ProductDTO> getOmatprodList(PageDTO pageDTO) {
@@ -77,10 +64,10 @@ public class OmatServiceImpl implements OmatService{
 	}
 
 	@Override
-	public void deleteList(String omat_cd) {
+	public void deleteList(OmatDTO omatDTO) {
 		System.out.println("OmatServiceImpl deleteList()");
 
-		omatDAO.deleteList(omat_cd);
+		omatDAO.deleteList(omatDTO);
 	}
 
 
@@ -108,6 +95,14 @@ public class OmatServiceImpl implements OmatService{
 	@Override
 	public void updateOmat(OmatDTO omatDTO) {
 		System.out.println("OmatServiceImpl updateomat()");
+
+		omatDAO.updateOmat(omatDTO);
+		
+		
+	}
+	@Override
+	public void updatOmatdel(OmatDTO omatDTO) {
+		System.out.println("ImatServiceImpl updateimat()");
 
 		omatDAO.updateOmat(omatDTO);
 	}

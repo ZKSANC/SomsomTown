@@ -21,7 +21,7 @@ public class ImatDAOImpl implements ImatDAO{
 	@Override
 	public void insertImat(ImatDTO imatDTO) {
 		System.out.println("ImatDAOImpl insertImat()");
-
+		sqlSession.update(namespace+".updatImatStg", imatDTO);
 		sqlSession.insert(namespace+".insertImat", imatDTO);
 	}
 
@@ -68,10 +68,10 @@ public class ImatDAOImpl implements ImatDAO{
 
 
 	@Override
-	public void deleteList(String imat_cd) {
+	public void deleteList(ImatDTO imatDTO) {
 	    System.out.println("ImatDAOImpl deleteList()");
-
-	    sqlSession.delete(namespace+".deleteList", imat_cd);
+	    sqlSession.update(namespace+".updatImatdel", imatDTO);
+	    sqlSession.delete(namespace+".deleteList", imatDTO);
 	}
 
 	@Override
@@ -86,6 +86,7 @@ public class ImatDAOImpl implements ImatDAO{
 	@Override
 	public void updateImat(ImatDTO imatDTO) {
 		System.out.println("ImatDAOImpl updateImat()");
+		sqlSession.update(namespace+".updatImatup", imatDTO);
 		sqlSession.update(namespace+".updateImat", imatDTO);
 
 	}
