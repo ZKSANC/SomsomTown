@@ -9,10 +9,11 @@ public class ClientDTO {
 	private String cli_prod;
 	private String cli_boss;
 	private String cli_emp;
+	private String cli_postno;
 	private String cli_addr;
 	private String cli_addr2;
 	private String cli_tel;
-	private String cli_emp_tel;
+	private String cli_phone;
 	private String cli_fax;
 	private String cli_email;
 	private String cli_note;
@@ -106,12 +107,20 @@ public class ClientDTO {
 		this.cli_tel = cli_tel;
 	}
 
-	public String getCli_emp_tel() {
-		return cli_emp_tel;
+	public String getCli_postno() {
+		return cli_postno;
 	}
 
-	public void setCli_emp_tel(String cli_emp_tel) {
-		this.cli_emp_tel = cli_emp_tel;
+	public void setCli_postno(String cli_postno) {
+		this.cli_postno = cli_postno;
+	}
+
+	public String getCli_phone() {
+		return cli_phone;
+	}
+
+	public void setCli_phone(String cli_phone) {
+		this.cli_phone = cli_phone;
 	}
 
 	public String getCli_fax() {

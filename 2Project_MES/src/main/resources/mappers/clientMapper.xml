@@ -20,6 +20,12 @@
 		</if>
 		limit #{startRow} , #{pageSize}
 	</select>
+	
+		<select id="getClientDetail"
+		resultType="com.project.domain.ClientDTO">
+		select * from client
+		where cli_cd = #{cli_cd}
+	</select>
 
 	<select id="getClientCount" resultType="java.lang.Integer">
 		select count(*) from client
@@ -40,16 +46,15 @@
 	<!-- 거래처코드 C001, C002처럼 자동입력 -->
 	<insert id="insertClient">
 		insert into client (cli_cd, cli_nm, cli_type,
-		cli_num,
-		cli_business,
-		cli_prod, cli_boss, cli_emp, cli_addr)
+		cli_num, cli_boss,
+		cli_business, cli_prod, cli_tel, cli_email, cli_emp, cli_phone, cli_fax,
+		cli_postno, cli_addr, cli_addr2, cli_note)
 		select
 		concat('C',
 		lpad(coalesce(substring(max(cli_cd), 2), 0) + 1, 3, '0')),
-		#{cli_nm}, #{cli_type}, #{cli_num}, #{cli_business},
-		#{cli_prod},
-		#{cli_boss},
-		#{cli_emp}, #{cli_addr}
+		#{cli_nm}, #{cli_type}, #{cli_num}, #{cli_boss}, #{cli_business},
+		#{cli_prod}, #{cli_tel}, #{cli_email}, #{cli_emp}, #{cli_phone}, #{cli_fax}, #{cli_postno}, #{cli_addr},
+		#{cli_addr2}, #{cli_note}
 		from client
 	</insert>
 
@@ -62,12 +67,12 @@
 	<update id="updateClient">
 		update client set cli_nm =
 		#{cli_nm}, cli_type =
-		#{cli_type}, cli_num = #{cli_num},
+		#{cli_type}, cli_num = #{cli_num}, cli_boss = #{cli_boss},
 		cli_business =
 		#{cli_business},
-		cli_prod = #{cli_prod}, cli_boss = #{cli_boss},
-		cli_emp = #{cli_emp},
-		cli_addr = #{cli_addr}
+		cli_prod = #{cli_prod}, cli_tel = #{cli_tel}, cli_email = #{cli_email},
+		cli_emp = #{cli_emp}, cli_phone = #{cli_phone}, cli_fax = #{cli_fax},
+		cli_postno = #{cli_postno}, cli_addr = #{cli_addr}, cli_addr2 = #{cli_addr2}, cli_note = #{cli_note}
 		where cli_cd = #{cli_cd}
 	</update>
 

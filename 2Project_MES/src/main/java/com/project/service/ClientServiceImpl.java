@@ -46,7 +46,7 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public void insertClient(ClientDTO clientDTO) {
-		System.out.println("ClientServiceImpl insertMember()");
+		System.out.println("ClientServiceImpl insertClient()");
 
 		clientDAO.insertClient(clientDTO);
 
@@ -72,6 +72,13 @@ public class ClientServiceImpl implements ClientService {
 
 		int count = clientDAO.clientDupCheck(cli_num);
 		return count;
+	}
+
+	@Override
+	public ClientDTO getClientInfo(String cli_cd) {
+		System.out.println("ClientServiceImpl getClientInfo(cli_cd)");
+		
+		return clientDAO.getClientInfo(cli_cd);
 	}
 
 }
