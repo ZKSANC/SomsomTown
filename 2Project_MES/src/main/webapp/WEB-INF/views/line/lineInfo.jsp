@@ -316,12 +316,26 @@
 			jQuery('#insertBtn').prop('disabled', true);
 			jQuery('#insertLineNm').focus();
 		});
-		
-		// 삭제버튼 제어
+		//삭제 버튼 제어
 		$(document).on("click", "#deleteBtn", function(){
 			location.href='${pageContext.request.contextPath}/line/deleteLine?delLineCd='+jQuery('#insertLineCd').val();
 		});
 		
+		// 추가버튼 제어
+		$(document).on("click", "#insertBtn", function(){
+			if(jQuery('#insertLineNm').val() == ''){
+				alert("라인명을 입력해주세요.");
+				return false;
+			}
+			if(jQuery('#insertLinePlace').val() == ''){
+				alert("작업장을 입력해주세요.");
+				return false;
+			}
+			if(jQuery('#insertLineNum').val() == ''){
+				alert("정렬순서를 입력해주세요.");
+				return false;
+			}
+		});
 
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.domain.InstructionDTO;
-import com.project.domain.LineDTO;
 import com.project.domain.PageDTO;
 import com.project.service.InstructionService;
 
@@ -129,7 +128,7 @@ public class InstructionController {
 	
 	@RequestMapping(value = "/instruction/instructionPop", method = RequestMethod.GET)
 	public String getLinePop(HttpServletRequest request, PageDTO pageDTO, Model model) {
-		System.out.println("xinstructionController instructionPop()");
+		System.out.println("instructionController instructionPop()");
 		
 		String searchLineCd=request.getParameter("searchLineCd");
 		String searchOrdDate1 =request.getParameter("searchOrdDate1");

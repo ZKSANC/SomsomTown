@@ -388,8 +388,7 @@
 		$(document).on("click","#infoInstTr td:not(:last-child)", function(){
 			var tr1 = jQuery(this);
 			var td1 = tr1.children();
-// 			location.href='${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=1&searchInstCd='+jQuery(this).closest('tr').children('td:eq(0)').text()+'&search2=&search3=&search4=&search5=';
-			location.href='${pageContext.request.contextPath}/instruction/instClickTr?clickInstCd='+jQuery(this).closest('tr').children('td:eq(0)').text();
+			location.href='${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=1&searchInstCd='+jQuery(this).closest('tr').children('td:eq(0)').text()+'&search2=&search3=&search4=&search5=';
 		});
 
 		// 회색 수정 버튼 
