@@ -166,8 +166,6 @@ public class PerformanceController {
 	public String insertPerfPro(PerformanceDTO performanceDTO) {
 		System.out.println("instructionController insertInstPro()");
 		performanceService.insertPerf(performanceDTO);
-		int fcount=performanceDTO.getPerf_good();
-		instructionService.fcountupdate(fcount);
 		System.out.println(performanceDTO.getPerf_cause());
 		return "redirect:/performance/performanceCurrentInfo";
 	}

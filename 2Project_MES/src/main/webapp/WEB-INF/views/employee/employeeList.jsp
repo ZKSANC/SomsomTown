@@ -9,11 +9,12 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>employeeList</title>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ela Admin - HTML5 Admin Template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+<link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+<link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -184,23 +185,23 @@ function fun1(index) {
 		<!-- Header-->
 		<jsp:include page="../inc/top.jsp" />
 		<!-- Header-->
-        
 		<div class="breadcrumbs">
 			<div class="breadcrumbs-inner">
 				<div class="row m-0">
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
+
 								<h1 class="m-0">시스템 관리</h1>
 							</div>
 						</div>
 					</div>
- 				<div class="col-sm-8">
+					<div class="col-sm-8">
 						<div class="page-header float-right">
 							<div class="page-title">
 								<ol class="breadcrumb text-right">
-									<li><a href="#">시스템 관리</a></li>
-									<li class="active">사용자 관리</li>
+									<li><a href="#">시스템관리</a></li>
+									<li class="active">사용자관리</li>
 								</ol>
 							</div>
 						</div>

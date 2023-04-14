@@ -76,7 +76,7 @@ $(document).ready(function(){
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
-								<h1>공통코드 관리</h1>
+								<h1>시스템 관리</h1>
 							</div>
 						</div>
 					</div>
@@ -109,7 +109,7 @@ $(document).ready(function(){
 								<strong class="card-title">그룹코드 </strong>
 							</div>
 							<div class="card-body">
-								<table id="hover_tbl" class="table table-striped table-bordered table-hover">
+								<table id="hover_tb" class="table table-striped table-bordered table-hover">
 									<thead class="thead-dark">
 										<tr>
 											<th scope="col">그룹코드</th>

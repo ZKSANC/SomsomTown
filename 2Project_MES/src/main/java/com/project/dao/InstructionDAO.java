@@ -21,6 +21,4 @@ public interface InstructionDAO {
 
 	public void deletInst(String inst_cd);
 
-	public void fcountupdate(int fcount);
-
 }
