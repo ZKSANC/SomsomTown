@@ -24,23 +24,23 @@
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
 <body>
-<div class="col">
+<div class="col mt-3">
 	<div class="row">
 		<div class="col-lg">
 			<div class="card">
 				<div class="card-body card-block">
 					<form action='${pageContext.request.contextPath}/line/linePop' class="form-inline" method="get" id="lineSearchForm">
-						<div class="form-group col-6 mb-1">
+						<div class="form-group col-10 mb-1">
 							<div class="input-group modalP">
-								<input type="hidden" value="${pageDTO.search }" id="btnId">
-								<label for="modalLineCd" class="pr-1 form-control-label">라인 코드</label>
+								<input type="hidden" value="${pageDTO.search3 }" id="btnId">
+								<label for="popLineCd" class="pr-1 form-control-label">라인 코드</label>
 								<input type="text" id="popLineCd" name="popLineCd" placeholder="Line Code" class="form-control bg-white mr-4">
-								<label for="modalLineNm" class="pr-1 form-control-label">라인명</label>
+								<label for="popLineNm" class="pr-1 form-control-label">라인명</label>
 								<input type="text" id="popLineNm" name="popLineNm" placeholder="Line Name" class="form-control bg-white">
-								<div class="input-group-btn">
-								<input type	="submit" class="btn btn-primary ml-2" id="lineSearchBtn" value="검색">
-								</div>
 							</div>
+						</div>
+						<div class="input-group-btn col-2">
+							<input type	="submit" class="btn btn-primary ml-2" id="lineSearchBtn" value="검색">
 						</div>
 						<div class="col p-0"></div>
 					</form>
@@ -53,6 +53,7 @@
 <div class="col">
 	<div class="card">
 		<div class="card-body">
+		<div class="col">
 			<table id="hover_tb" class="table table-hover table-striped table-bordered table-align-middle mb-0">
 				<thead class="thead-dark">
 					<tr>
@@ -66,7 +67,12 @@
 				</thead>
 				<tbody>
 					<c:forEach var="lineDTO" items="${lineList }">
-						<tr id="infoLineTr" class="data-row">
+						<c:if test="${lineDTO.line_st eq 'err'}">
+							<tr id="infoLineTr" class="data-row bg-danger">
+						</c:if>
+						<c:if test="${lineDTO.line_st ne 'err'}">
+							<tr id="infoLineTr" class="data-row">
+						</c:if>
 							<td id="line_cd">${lineDTO.line_cd }</td>
 							<td>${lineDTO.line_nm }</td>
 							<td>${lineDTO.line_process}</td>
@@ -78,26 +84,61 @@
 					</c:forEach>
 				</tbody>
 			</table>
+								<div class="col p-0 mt-3">
+									<div class="dataTables_paginate paging_simple_numbers float-right">
+										<ul class="pagination">
+										<!-- 이전 -->
+										<c:if test="${pageDTO.startPage <= pageDTO.pageBlock }">
+											<li class="paginate_button page-item previous disabled">
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												class="page-link">Previous</a></li>
+										</c:if>
+										<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+											<li class="ppaginate_button page-item previous" >
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												class="page-link">Previous</a>
+											</li>
+										</c:if>
+										<!-- 이전 -->
+										<!-- 현재 -->										
+										<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+											<c:if test="${i==pageDTO.pageNum }">
+												<li class="paginate_button page-item active">
+													<a class="page-link" href="#">${i}</a>
+												</li>											
+											</c:if>
+											<c:if test="${i!=pageDTO.pageNum }">
+												<li class="paginate_button page-item ">
+													<a class="page-link" href="${pageContext.request.contextPath}/line/linePop?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">${i}</a>
+												</li>
+											</c:if>
+										</c:forEach>
+										<!-- 현재 -->										
+										<!-- 다음 -->																				
+										<c:if test="${pageDTO.endPage >= pageDTO.pageCount }">
+											<li class="paginate_button page-item next disabled" id="bootstrap-data-table_next">
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}" class="page-link">Next</a>
+											</li>
+										</c:if>
+										<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+											<li class="paginate_button page-item next" id="bootstrap-data-table_next">
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}" class="page-link">Next</a>
+											</li>
+										</c:if>
+										<!-- 다음 -->																				
+										</ul>
+									</div>
+								</div>
+			</div>
+			<!-- 페이징 -->
+								<!-- 페이징 -->
+			<div class="footer">
+			</div>
 		</div>
 	</div>
 </div>
 
 			
-			<div class="pageNum">
-				<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-					<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&btnId=${pageDTO.search}&popLineCd=${pageDTO.search2}&popLineNm=${pageDTO.search3}">[10페이지 이전]</a>
-				</c:if>
-
-				<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-					<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${i}&btnId=${pageDTO.search}&popLineCd=${pageDTO.search2}&popLineNm=${pageDTO.search3}">${i}</a>
-				</c:forEach>
-				<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-					<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&btnId=${pageDTO.search}&popLineCd=${pageDTO.search2}&popLineNm=${pageDTO.search3}">[10페이지 다음]</a>
-				</c:if>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" id="cancel">닫기</button>
-			</div>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
 <script type="text/javascript">	
@@ -108,12 +149,15 @@
 		
 		console.log($('#btnId').val());
 		popLineCd = td1.eq(0).text();
+		popLineNm = td1.eq(1).text();
 		
 		if($('#btnId').val()=='linePopI'){
 		$("#insertLineCd", opener.document).val(popLineCd);
+		$("#insertLineNm", opener.document).val(popLineNm);
 		}else{
 		$("#searchLineCd", opener.document).val(popLineCd);
 		}
+		
 		self.close();
 	});
 	

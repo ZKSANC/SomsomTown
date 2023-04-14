@@ -74,7 +74,6 @@ public class ImatController {
 //		return null;
 	}
 	
-	
 	@RequestMapping(value = "/imat/imatpopPro", method = RequestMethod.GET)
 	public String imatpopPro(HttpServletRequest request, Model model) {
 		System.out.println("ImatController imatpopPro()");

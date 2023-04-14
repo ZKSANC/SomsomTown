@@ -92,7 +92,7 @@
 									method="get" class="form-inline">
 									<div class="form-group col-6 mb-1">
 										<label class="pr-1 form-control-label mr-2">지시번호</label> <input
-											type="text" name="searchInstCd" class="form-control" placeholder="Inst Code">
+											type="text" name="searchInstCd" value="${instructionDTO.inst_cd }"class="form-control instCd" placeholder="Inst Code">
 									</div>
 									<div class="form-group col-6 mb-1">
 										<label for="searchLine" class="pr-1 form-control-label mr-2">라인</label>
@@ -166,7 +166,7 @@
 										<tbody>
 											<tr>
 												<td scope="row"><input type="text" id="insertPerfCd"
-													name="perf_cd" class="form-control" readonly></td>
+													name="perf_cd" class="form-control instCd" readonly></td>
 												<td>
 													<div class="input-group modalP" id="modalP2">
 														<input type="text" id="insertInstCd" name="inst_cd"
@@ -174,7 +174,7 @@
 															placeholder="Inst Code" class="form-control bg-white">
 														<div class="input-group-btn">
 															<input type="button" class="btn btn-primary"
-																id="instListBtn" value="목록">
+																id="instPopBtn" value="검색">
 														</div>
 													</div>
 												</td>
@@ -199,18 +199,15 @@
 												<td class="col-1">
 													<div class="col p-0">
 														<select class="form-control" id="insertPerfCs"
-															name="perf_couse" disabled="disabled">
+															name="perf_cause" disabled="disabled">
 															<option value="">--</option>
 															<option value="기계이상">기계이상</option>
 															<option value="재고부족">재고부족</option>
 															<option value="기타">기타</option>
 														</select>
 													</div>
-												<td><input type="text" id="insertOrdCd"
-													value="${instructionDTO.ord_cd}" disabled
-													class="form-control"></td>
-												<td><input type="text" id="insertPerfNote"
-													class="form-control"></td>
+												<td><input type="text" id="insertOrdCd" value="${instructionDTO.ord_cd}" disabled class="form-control"></td>
+												<td><input type="text" id="insertPerfNote" name="perf_note" class="form-control"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -262,7 +259,9 @@
 											<th scope="col">수주번호</th>
 											<th scope="col">업체</th>
 											<th scope="col" class="col-1">비고</th>
+											<c:if test="${sessionScope.emp_position != '사원'}">
 											<th scope="col"></th>
+											</c:if>
 										</tr>
 									</thead>
 									<tbody>
@@ -285,37 +284,65 @@
 												<td>${performanceDTO.ord_cd }</td>
 												<td>${performanceDTO.cli_nm }</td>
 												<td>${performanceDTO.perf_note }</td>
+												<c:if test="${sessionScope.emp_position != '사원'}">
 												<td>
 													<div class="input-group">
 														<button id="editPerfBtn" class="btn btn-secondary"
-															value="${performanceDTO.perf_cd }">수정</button>
+															value="${performanceDTO.perf_cd }">편집</button>
 													</div>
 												</td>
+												</c:if>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-								<!-- 페이징 처리 -->
-								<div class="pageNum">
-									<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-										<a
-											href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&ssearchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}">[10페이지
-											이전]</a>
-									</c:if>
-
-									<c:forEach var="i" begin="${pageDTO.startPage }"
-										end="${pageDTO.endPage }" step="1">
-										<a
-											href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${i}&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&ssearchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}">${i}</a>
-									</c:forEach>
-
-									<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-										<a
-											href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&ssearchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}">[10페이지
-											다음]</a>
-									</c:if>
+								<!-- 페이징 -->
+								<div class="col p-0 mt-3">
+									<div class="dataTables_paginate paging_simple_numbers float-right">
+										<ul class="pagination">
+										<!-- 이전 -->
+										<c:if test="${pageDTO.startPage <= pageDTO.pageBlock }">
+											<li class="paginate_button page-item previous disabled">
+												<a href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&searchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}"
+												class="page-link">Previous</a></li>
+										</c:if>
+										<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+											<li class="ppaginate_button page-item previous" >
+												<a href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&searchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}"
+												class="page-link">Previous</a>
+											</li>
+										</c:if>
+										<!-- 이전 -->
+										<!-- 현재 -->										
+										<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+											<c:if test="${i==pageDTO.pageNum }">
+												<li class="paginate_button page-item active">
+													<a class="page-link" href="#">${i}</a>
+												</li>											
+											</c:if>
+											<c:if test="${i!=pageDTO.pageNum }">
+												<li class="paginate_button page-item ">
+													<a class="page-link" href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${i}&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&searchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}">${i}</a>
+												</li>
+											</c:if>
+										</c:forEach>
+										<!-- 현재 -->										
+										<!-- 다음 -->																				
+										<c:if test="${pageDTO.endPage >= pageDTO.pageCount }">
+											<li class="paginate_button page-item next disabled" id="bootstrap-data-table_next">
+												<a href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&searchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}" class="page-link">Next</a>
+											</li>
+										</c:if>
+										<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+											<li class="paginate_button page-item next" id="bootstrap-data-table_next">
+												<a href="${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&searchInstCd=${pageDTO.search}&searchProdCd=${pageDTO.search2}&searchPerfDate1=${pageDTO.search3}&searchPerfDate2=${pageDTO.search4}&searchLineCd=${pageDTO.search5}" class="page-link">Next</a>
+											</li>
+										</c:if>
+										<!-- 다음 -->																				
+										</ul>
+									</div>
 								</div>
-
+								<!-- 페이징 -->
 								<br>
 								<br> <b>생산실적 현황</b>
 								<table id="result-table"
@@ -437,7 +464,7 @@
 				jQuery('#insertPerfCs').attr('disabled', true);
 			}
 		});
-		
+			
 		// 실적 추가 버튼
 		$(document).on("click", "#insertPerfBtn", function(){
 			console.log(jQuery('#insertPerfCs option:selected').val());
@@ -466,6 +493,11 @@
 			window.open(
 					'${pageContext.request.contextPath}/line/linePop', 'LinePop', 'width=800,height=650');
 		});
+		// 지시 팝업
+		$(document).on("click", "#instPopBtn", function(){
+			window.open(
+					'${pageContext.request.contextPath}/instruction/instructionPop', 'InstPop', 'width=1200,height=650');
+		});
 		
 		// 품목팝업
 		$(document).on("click", "#productSearchPop", function(){
@@ -474,10 +506,13 @@
 				"${pageContext.request.contextPath }/product/productSearchPop",
 				"productSearchPop", "width=800,height=650");
 		});
-		
-		// 목록(생산 지시 페이지로 이동)
-		$(document).on("click", "#instListBtn", function(){
-			location.href='${pageContext.request.contextPath}/instruction/infoInst';
+
+		// 불량사유 존재 x 알림
+		$(document).on("click", "#updatePerfBtn", function(){
+			if(jQuery('#insertPerfErr').val()>0 && jQuery('#insertPerfCs').val() == '' ){
+				alert("불량품이 있습니다. 불량사유 기재해주세요.");
+				return false;
+			}
 		});
 	</script>
 	<script

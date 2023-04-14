@@ -84,6 +84,13 @@
 			}
 		}
 	}
+
+	// 거래처 상세페이지 팝업창 
+	function clientDetail(cli_cd) {
+		window.open(
+				"${pageContext.request.contextPath }/client/clientDetail?cli_cd="
+						+ cli_cd, "clientDetail", "width=800,height=800");
+	}
 </script>
 </head>
 <body>
@@ -136,11 +143,13 @@
 									method="get" class="form-inline">
 									<div class="form-group col-6 mb-1">
 										<label class="pr-1 form-control-label">거래처코드</label>&nbsp;&nbsp;<input
-											type="text" name="search" class="form-control " placeholder="Client Code">
+											type="text" name="search" class="form-control "
+											placeholder="Client Code">
 									</div>
 									<div class="form-group col-6 mb-1">
 										<label class="pr-1  form-control-label">거래처명</label>&nbsp;&nbsp;<input
-											type="text" name="search2" class="form-control " placeholder="Client Name">
+											type="text" name="search2" class="form-control "
+											placeholder="Client Name">
 									</div>
 									<div class="form-group col-6 mt-1">
 										<label class="pr-1  form-control-label">거래처구분</label>&nbsp;&nbsp;
@@ -154,10 +163,11 @@
 										</div>
 									</div>
 									<div class="col p-0">
-										<input type="submit" class="btn btn-primary float-right ml-3" value="검색">
-										<input type="reset" class="btn btn-secondary float-right reset" value="취소">
+										<input type="submit" class="btn btn-primary float-right ml-3"
+											value="검색"> <input type="reset"
+											class="btn btn-secondary float-right reset" value="취소">
 									</div>
-		</form>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -165,7 +175,7 @@
 			</div>
 		</div>
 		<!-- 	검색창 -->
-		
+
 		<!-- 체크박스로 선택해 글 여러개 삭제가능  -->
 		<form name="chkDelete"
 			action="${pageContext.request.contextPath}/client/delete"
@@ -191,8 +201,7 @@
 									<strong class="card-title">거래처</strong>
 								</div>
 								<div class="card-body">
-									<table id="bootstrap-data-table"
-										class="table table-striped table-bordered">
+									<table id="hover_tb" class="table table-striped table-bordered">
 										<thead class="thead-dark">
 											<tr>
 												<!-- 사원이 아닐때 (관리자, 파트장) 삭제 권한  -->
@@ -210,67 +219,86 @@
 												<th scope="col">종목</th>
 												<th scope="col">대표자</th>
 												<th scope="col">담당자</th>
-												<th scope="col">주소</th>
-												<!-- 사원이 아닐때 (관리자, 파트장) 수정 권한  -->
-												<c:if test="${ ! empty sessionScope.emp_cd }">
-													<c:if test="${sessionScope.emp_position ne '사원' }">
-														<th scope="col"></th>
-													</c:if>
-												</c:if>
+												<th scope="col">대표전화</th>
+												<th scope="col">담당자 전화번호</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="clientDTO" items="${clientInfo }">
+											<c:forEach var="clientDTO" items="${clientInfo}">
 												<tr>
 													<!-- 사원이 아닐때 (관리자, 파트장) 삭제 권한  -->
-													<c:if test="${ ! empty sessionScope.emp_cd }">
-														<c:if test="${sessionScope.emp_position ne '사원' }">
+													<c:if test="${!empty sessionScope.emp_cd}">
+														<c:if test="${sessionScope.emp_position ne '사원'}">
 															<th scope="row"><input type="checkbox" name="chk"
-																id="chk" value="${clientDTO.cli_cd }"></th>
+																id="chk" value="${clientDTO.cli_cd}"></th>
 														</c:if>
 													</c:if>
-													<td>${clientDTO.cli_cd }</td>
-													<td>${clientDTO.cli_nm }</td>
-													<td>${clientDTO.cli_type }</td>
-													<td>${clientDTO.cli_num }</td>
-													<td>${clientDTO.cli_business }</td>
-													<td>${clientDTO.cli_prod }</td>
-													<td>${clientDTO.cli_boss }</td>
-													<td>${clientDTO.cli_emp }</td>
-													<td>${clientDTO.cli_addr }</td>
-													<!-- 사원이 아닐때 (관리자, 파트장) 수정 권한  -->
-													<c:if test="${ ! empty sessionScope.emp_cd }">
-														<c:if test="${sessionScope.emp_position ne '사원' }">
-															<td><input type="button" class="btn btn-secondary"
-																value="수정"
-																onclick="location.href='${pageContext.request.contextPath}/client/update?cli_cd=${clientDTO.cli_cd}'"></td>
-														</c:if>
-													</c:if>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_cd}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_nm}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_type}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_num}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_business}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_prod}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_boss}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_emp}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_tel}</td>
+													<td onclick="clientDetail('${clientDTO.cli_cd}')">${clientDTO.cli_phone}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									
-									<!-- 페이징 처리 -->
-									<div class="pageNum">
-										<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-											<a
-												href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">[10페이지
-												이전]</a>
-										</c:if>
-
-										<c:forEach var="i" begin="${pageDTO.startPage }"
-											end="${pageDTO.endPage }" step="1">
-											<a
-												href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">${i}</a>
-										</c:forEach>
-
-										<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-											<a
-												href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">[10페이지
-												다음]</a>
-										</c:if>
+									<!-- 페이징 -->
+									<div class="col p-0 mt-3">
+										<div
+											class="dataTables_paginate paging_simple_numbers float-right">
+											<ul class="pagination">
+												<!-- 이전 -->
+												<c:if test="${pageDTO.startPage <= pageDTO.pageBlock }">
+													<li class="paginate_button page-item previous disabled">
+														<a
+														href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+														class="page-link">Previous</a>
+													</li>
+												</c:if>
+												<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+													<li class="ppaginate_button page-item previous"><a
+														href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+														class="page-link">Previous</a></li>
+												</c:if>
+												<!-- 이전 -->
+												<!-- 현재 -->
+												<c:forEach var="i" begin="${pageDTO.startPage }"
+													end="${pageDTO.endPage }" step="1">
+													<c:if test="${i==pageDTO.pageNum }">
+														<li class="paginate_button page-item active"><a
+															class="page-link" href="#">${i}</a></li>
+													</c:if>
+													<c:if test="${i!=pageDTO.pageNum }">
+														<li class="paginate_button page-item "><a
+															class="page-link"
+															href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">${i}</a>
+														</li>
+													</c:if>
+												</c:forEach>
+												<!-- 현재 -->
+												<!-- 다음 -->
+												<c:if test="${pageDTO.endPage >= pageDTO.pageCount }">
+													<li class="paginate_button page-item next disabled"
+														id="bootstrap-data-table_next"><a
+														href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+														class="page-link">Next</a></li>
+												</c:if>
+												<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+													<li class="paginate_button page-item next"
+														id="bootstrap-data-table_next"><a
+														href="${pageContext.request.contextPath}/client/clientInfo?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+														class="page-link">Next</a></li>
+												</c:if>
+												<!-- 다음 -->
+											</ul>
+										</div>
 									</div>
+									<!-- 페이징 -->
 								</div>
 							</div>
 						</div>
@@ -279,6 +307,7 @@
 			</div>
 		</form>
 		<!-- .content -->
+
 
 		<div class="clearfix"></div>
 		<!-- 푸터 넣는 곳 -->

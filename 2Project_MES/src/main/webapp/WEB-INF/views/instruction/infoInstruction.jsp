@@ -40,6 +40,9 @@
 	href="${pageContext.request.contextPath}/resources/css/performanceCurr.css">
 </head>
 <body>
+	<c:if test="${empty sessionScope.emp_cd }">
+		<c:redirect url="/employee/login"></c:redirect>
+	</c:if>
 	<!-- Left Panel1 -->
 	<jsp:include page="../inc/leftPanel.jsp" />
 	<!-- Left Panel1 -->
@@ -150,7 +153,7 @@
 				</div>
 			</div>
 		</div>
-
+		<c:if test="${sessionScope.emp_position != '사원'}">
 		<!-- 	편집창 insert(오브젝트)-->
 		<div class="content pt-0">
 			<div class="animated fadeIn">
@@ -190,7 +193,7 @@
 													<div class="input-group">
 														<input type="text" id="insertOrderCd" name="ord_cd" value="" placeholder="Order Code" class="form-control bg-white" readonly>
 														<div class="input-group-btn">
-															<input type="button" class="btn btn-primary" id="orderModalBtn" value="검색">
+															<input type="button" class="btn btn-primary" id="orderSearchPop" value="검색">
 														</div>
 													</div>
 												</td>
@@ -227,6 +230,7 @@
 				</div>
 			</div>
 		</div>
+	</c:if>
 
 		<!-- 리스트 -->
 		<div class="content pt-0">
@@ -253,7 +257,9 @@
 											<th scope="col">생산량</th>
 											<th scope="col">지시날짜</th>
 											<th scope="col">업체</th>
+											<c:if test="${sessionScope.emp_position != '사원'}">
 											<th scope="col"> </th>
+											</c:if>
 									</thead>
 									<tbody>
 										<c:forEach var="instructionDTO" items="${instList }">
@@ -270,11 +276,13 @@
 												<td>${instructionDTO.inst_fcount }</td>
 												<td><fmt:formatDate value="${instructionDTO.inst_date }" pattern="yyyy.MM.dd HH:mm"/></td>
 												<td>${instructionDTO.cli_nm }</td>
+												<c:if test="${sessionScope.emp_position != '사원'}">
 												<td>
 												<div class="input-group">
-												<button id="editInstBtn" class="btn btn-secondary" value="${instructionDTO.inst_cd }">수정</button>
+												<button id="editInstBtn" class="btn btn-secondary" value="${instructionDTO.inst_cd }">편집</button>
 												</div>
 												</td>
+												</c:if>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -349,71 +357,73 @@
 	<script type="text/javascript">
 		// 추가버튼 제어
 		$(document).on("click", "#insertInstBtn", function(){
-			if($('#insertOrderCd').val() == ''){
+			if(jQuery('#insertOrderCd').val() == ''){
 				alert("수주번호를 입력해주세요.");
 				return false;
 			}
-			if($('#insertLineCd').val() == ''){
+			if(jQuery('#insertLineCd').val() == ''){
 				alert("라인코드를 입력해주세요.");
 				return false;
 			}
-			if($('#insertInstFcount').val() == ''){
-				$('#insertInstFcount').val('0');
+			if(jQuery('#insertInstFcount').val() == ''){
+				jQuery('#insertInstFcount').val('0');
 			}
 		});
 		
 		// 취소 버튼 (clear)
 		$(document).on("click",".reset", function(){
-			console.log($(this).closest('form').find('div input[type="text"]'));
-			console.log($(this).attr('id'));
-			$(this).closest('form').find('div input[type="text"]').attr('value', '');
-			$(this).closest('form').find('div input[type="date"]').attr('value', '');
-			if($(this).attr('id')=='resetInstBtn'){
-				$("#insertInstForm").attr('action', '${pageContext.request.contextPath}/instruction/insertInst');
-				$('#updateInstBtn').prop('disabled', true);
-				$('#deleteInstBtn').prop('disabled', true);
-				$('#insertInstBtn').prop('disabled', false);
+			console.log(jQuery(this).closest('form').find('div input[type="text"]'));
+			console.log(jQuery(this).attr('id'));
+			jQuery(this).closest('form').find('div input[type="text"]').attr('value', '');
+			jQuery(this).closest('form').find('div input[type="date"]').attr('value', '');
+			if(jQuery(this).attr('id')=='resetInstBtn'){
+				jQuery("#insertInstForm").attr('action', '${pageContext.request.contextPath}/instruction/insertInst');
+				jQuery('#updateInstBtn').prop('disabled', true);
+				jQuery('#deleteInstBtn').prop('disabled', true);
+				jQuery('#insertInstBtn').prop('disabled', false);
 			}
 		});
 		
 		// 행 클릭시 이동
 		$(document).on("click","#infoInstTr td:not(:last-child)", function(){
-			location.href='${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=1&search='+$(this).closest('tr').children('td:eq(0)').text()+'&search2=&search3=&search4=&search5=';
+			var tr1 = jQuery(this);
+			var td1 = tr1.children();
+// 			location.href='${pageContext.request.contextPath}/performance/performanceCurrentInfo?pageNum=1&searchInstCd='+jQuery(this).closest('tr').children('td:eq(0)').text()+'&search2=&search3=&search4=&search5=';
+			location.href='${pageContext.request.contextPath}/instruction/instClickTr?clickInstCd='+jQuery(this).closest('tr').children('td:eq(0)').text();
 		});
 
 		// 회색 수정 버튼 
 		$(document).on("click", "#editInstBtn", function(){
-			console.log('['+$(this).closest('tr').children('td:eq(0)').text().trim()+']');
-			$('#insertInstCd').val($(this).closest('tr').children('td:eq(0)').text().trim());
-			$('#insertLineCd').val($(this).closest('tr').children('td:eq(1)').text());
-			$('#insertLineNm').val($(this).closest('tr').children('td:eq(2)').text());
-			$('#insertOrderCd').val($(this).closest('tr').children('td:eq(3)').text());
-			$('#insertProdCd').val($(this).closest('tr').children('td:eq(4)').text());
-			$('#insertProdNm').val($(this).closest('tr').children('td:eq(5)').text());
-			$('#insertProdUnit').val($(this).closest('tr').children('td:eq(6)').text());
-			$('#insertInstSt').val($(this).closest('tr').children('td:eq(7)').text()).prop('selected', true);
-			$('#insertProdCount').val($(this).closest('tr').children('td:eq(8)').text());
-			$('#insertInstFcount').val($(this).closest('tr').children('td:eq(9)').text());
-			$('#insertClientNm').val($(this).closest('tr').children('td:eq(11)').text());
-			$('#insertInstForm').attr('action', '${pageContext.request.contextPath}/instruction/updateInst');
-			$('#updateInstBtn').prop('disabled', false);
-			$('#deleteInstBtn').prop('disabled', false);
-			$('#insertInstBtn').prop('disabled', true);
-			$('#lineModalBtn').focus();
+			jQuery('#insertInstCd').val(jQuery(this).closest('tr').children('td:eq(0)').text().trim());
+			jQuery('#insertLineCd').val(jQuery(this).closest('tr').children('td:eq(1)').text());
+			jQuery('#insertLineNm').val(jQuery(this).closest('tr').children('td:eq(2)').text());
+			jQuery('#insertOrderCd').val(jQuery(this).closest('tr').children('td:eq(3)').text());
+			jQuery('#insertProdCd').val(jQuery(this).closest('tr').children('td:eq(4)').text());
+			jQuery('#insertProdNm').val(jQuery(this).closest('tr').children('td:eq(5)').text());
+			jQuery('#insertProdUnit').val(jQuery(this).closest('tr').children('td:eq(6)').text());
+			jQuery('#insertInstSt').val(jQuery(this).closest('tr').children('td:eq(7)').text()).prop('selected', true);
+			jQuery('#insertProdCount').val(jQuery(this).closest('tr').children('td:eq(8)').text());
+			jQuery('#insertInstFcount').val(jQuery(this).closest('tr').children('td:eq(9)').text());
+			jQuery('#insertClientNm').val(jQuery(this).closest('tr').children('td:eq(11)').text());
+			jQuery('#insertInstForm').attr('action', '${pageContext.request.contextPath}/instruction/updateInst');
+			jQuery('#updateInstBtn').prop('disabled', false);
+			jQuery('#deleteInstBtn').prop('disabled', false);
+			jQuery('#insertInstBtn').prop('disabled', true);
+			jQuery('#lineModalBtn').focus();
 		});
 		
 		// 삭제버튼 제어
 		$(document).on("click", "#deleteInstBtn", function(){
-			console.log($('#insertInstCd').val());
-			location.href='${pageContext.request.contextPath}/instruction/deleteInst?delInstCd='+$('#insertInstCd').val();
+			console.log(jQuery('#insertInstCd').val());
+			location.href='${pageContext.request.contextPath}/instruction/deleteInst?delInstCd='+jQuery('#insertInstCd').val();
 		});
 		
 		// 라인 팝업
 		$(document).on("click", ".linePopBtn", function(){
-			console.log($(this).attr('id'));
+			console.log(jQuery(this).attr('id'));
 			window.open(
-					'${pageContext.request.contextPath}/line/linePop?btnId='+$(this).attr('id'),
-					'LinePop', 'width=800,height=650');
+					'${pageContext.request.contextPath}/line/linePop?btnId='+jQuery(this).attr('id'),
+					'LinePop', 'width=800,height=550');
 		});
 		
 		// 품목 팝업
@@ -421,32 +431,16 @@
 			
 			window.open(
 					"${pageContext.request.contextPath }/product/productSearchPop",
-					"productSearchPop", "width=800,height=650");
+					"productSearchPop", "width=900,height=650");
 			});
-		// 체크박스 제어
-// 		$("#searchInstSt1").change(function(){
-// 			if($("#searchInstSt1").is(":checked")){
-// 				$("#searchInstSt1").attr('value', '대기');
-// 			}else{
-// 				$("#searchInstSt1").attr('value', '');
-// 			}
-// 		});
-		
-// 		$("#searchInstSt2").change(function(){
-// 			if($("#searchInstSt2").is(":checked")){
-// 				$("#searchInstSt2").attr('value', '진행');				
-// 			}else{
-// 				$("#searchInstSt2").attr('value', '');
-// 			}
-// 		});
+		// 수주팝업
+		$(document).on("click", "#orderSearchPop", function(){
 			
-// 		$("#searchInstSt3").change(function(){
-// 			if($("#searchInstSt3").is(":checked")){
-// 				$("#searchInstSt3").attr('value', '완료');
-// 			}else{
-// 				$("#searchInstSt3").attr('value', '');
-// 			}
-// 		});
+			window.open(
+					"${pageContext.request.contextPath }/order/orderPop",
+					"orderSearchPop", "width=1100,height=650");
+			});
+
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
 	<script

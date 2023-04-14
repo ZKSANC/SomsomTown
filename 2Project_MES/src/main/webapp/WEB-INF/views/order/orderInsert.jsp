@@ -64,38 +64,45 @@
 			$('input[id=prod_unit]').removeAttr('value');
 			$('input[id=ord_count]').removeAttr('value');
 		});
+
+		$('#btn_del').click(function(){
+			if($('#ord_cd').val()=="") {
+				alert("삭제할 데이터가 없습니다.");
+				return false;
+			}
+		});
 		
 		$('#orderInsert').submit(function(){
 			if($('#emp_cd').val()==""&&$('#cli_cd').val()==""&&$('#ord_date').val()==""&&$('#ord_d_date').val()==""&&$('#prod_cd').val()==""&&$('#ord_count').val()==""){
-				alert("데이터가 없습니다")
+				alert("데이터가 없습니다.")
 				return false;
 			}
 			if($('#emp_cd').val()==""){
-				alert("담당자 선택");
+				alert("담당자를 선택하세요.");
 				return false;
 			}
 			if($('#cli_cd').val()==""){
-            	alert("거래처 선택");
+            	alert("거래처를 선택하세요.");
             	return false;
             }
 			if($('#ord_date').val()==""){
-            	alert("수주일자 입력");
+            	alert("수주일자를 입력하세요.");
             	return false;
             }
 			if($('#ord_d_date').val()==""){
-				alert("납품예정일 입력");
+				alert("납품예정일을 입력하세요.");
 				return false;
             }
 			if($('#ord_date').val()>$('#ord_d_date').val()){
-				alert("납품예정일을 바르게 입력하세요");
+				alert("납품예정일을 바르게 입력하세요.");
             	return false;
     		}
 			if($('#prod_cd').val()==""){
-				alert("상품 선택");
+				alert("상품을 선택하세요.");
 				return false;
 			}
 			if($('#ord_count').val()==""){
-				alert("수주량 입력");
+				alert("수주량을 입력하세요.");
 				return false;
 			}
 			var num = /[0-9]/;
@@ -103,6 +110,17 @@
 				alert("숫자만 입력");
 				return false;
 			}
+		});
+		
+		$('#btn_celS').click(function(){
+			$('input[id=cliS_cd]').removeAttr('value');
+			$('input[id=cliS_nm]').removeAttr('value');
+			$('input[id=empS_cd]').removeAttr('value');
+			$('input[id=empS_nm]').removeAttr('value');
+			$('input[id=ordS_date]').removeAttr('value');
+			$('input[id=ordS_date_end]').removeAttr('value');
+			$('input[id=ordS_d_date]').removeAttr('value');
+			$('input[id=ordS_d_date_end]').removeAttr('value');
 		});
 	});
 </script>
@@ -128,7 +146,7 @@
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
-								<h1>수주관리</h1>
+								<h1>영업관리</h1>
 							</div>
 						</div>
 					</div>
@@ -155,17 +173,18 @@
 							<div class="card-body card-block">
 								<form action="${pageContext.request.contextPath }/order/orderInsert" method="get" class="form-inline">
 									<div class="search-div">
-										<span class="search-cl">거래처</span><input type="text" id="cliS_cd" name="cli" placeholder="Client Code" readonly><input type="text" id="cliS_nm" placeholder="Client Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('cliS')"><i class="ti-search"></i></button>
+										<span class="search-cl">거래처</span><input type="text" id="cliS_cd" name="cli" value="${pageDTO.search }" placeholder="Client Code" readonly><input type="text" id="cliS_nm" name="cliS_nm" value="${searchDTO.cli_nm }" placeholder="Client Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('cliS')"><i class="ti-search"></i></button>
 									</div>
 									<div class="search-div">
-										<span class="search-cl2">수주일자</span><input type="date" id="ordS_date" name="ord_date"><input type="date" id="ordS_date_end" name="ord_date_end">
+										<span class="search-cl2">수주일자</span><input type="date" id="ordS_date" name="ord_date" value="${pageDTO.search3 }"> ~ <input type="date" id="ordS_date_end" name="ord_date_end" value="${pageDTO.search4 }">
 									</div>
 									<div class="search-div">
-										<span class="search-cl">담당자</span><input type="text" id="empS_cd" name="emp" placeholder="Emp Code" readonly><input type="text" id="empS_nm" placeholder="Emp Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('empS')"><i class="ti-search"></i></button>
+										<span class="search-cl">담당자</span><input type="text" id="empS_cd" name="emp" value="${pageDTO.search2 }" placeholder="Emp Code" readonly><input type="text" id="empS_nm" name="empS_nm" value="${searchDTO.emp_nm }" placeholder="Emp Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('empS')"><i class="ti-search"></i></button>
 									</div>
 									<div class="search-div2">
-										<span class="search-cl">납품예정일</span><input type="date" id="ordS_d_date" name="ord_d_date"><input type="date" id="ordS_d_date_end" name="ord_d_date_end">
+										<span class="search-cl">납품예정일</span><input type="date" id="ordS_d_date" name="ord_d_date" value="${pageDTO.search5 }"> ~ <input type="date" id="ordS_d_date_end" name="ord_d_date_end" value="${pageDTO.search6 }">
 										<input type="submit" class="btn btn-primary float-right" style="margin-top: 6px" value="검색">
+										<input type="reset" id="btn_celS" class="btn btn-secondary float-right" style="margin: 6px 5px 0 0" value="취소">
 									</div>
 								</form>
 							</div>
@@ -175,11 +194,10 @@
 			</div>
 		</div>
 		<!-- 	검색창 -->
-		
 		<!-- .content -->
 		<div class="content-div div-left">
 			<div class="search-result-div">
-				<span class="search-result">총 ${pageDTO.count }건</span>
+				<span class="search-result">총 <strong>${pageDTO.count }</strong>건</span>
 			</div>
 			<div class="animated fadeIn">
 				<div class="row">
@@ -211,20 +229,24 @@
 										</c:forEach>
 									</tbody>
 								</table>
-								<!-- .content -->
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	<!-- .content -->
 		
 		<form action="${pageContext.request.contextPath }/order/orderInsertPro" id="orderInsert" method="POST">
 		<div class="content-div div-right">
 			<div style="width: 100%; height: 50px">
-					<button type="reset" id="btn_cel" class="btn btn-secondary float-right"  style="margin: 2px">취소</button>
-					<button type="submit" id="btn_del" name="btn_del" value="del" class="btn btn-primary float-right"  style="margin: 2px">삭제</button>
-					<button type="submit" id="btn_add" name="btn_add" value="add" class="btn btn-primary float-right" style="margin: 2px">저장</button>
+				<c:if test="${!empty sessionScope.emp_cd }">
+					<c:if test="${sessionScope.emp_position ne '사원' }">
+						<button type="reset" id="btn_cel" class="btn btn-secondary float-right"  style="margin: 2px">취소</button>
+						<button type="submit" id="btn_del" name="btn_del" value="del" class="btn btn-primary float-right"  style="margin: 2px">삭제</button>
+						<button type="submit" id="btn_add" name="btn_add" value="add" class="btn btn-primary float-right" style="margin: 2px">저장</button>
+					</c:if>
+				</c:if>
 			</div>
 			<div class="animated fadeIn">
 				<div class="row">

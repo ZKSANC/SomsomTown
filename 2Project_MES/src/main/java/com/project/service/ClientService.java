@@ -21,4 +21,6 @@ public interface ClientService {
 
 	public int clientDupCheck(String cli_num);
 
+	public ClientDTO getClientInfo(String cli_cd);
+
 }

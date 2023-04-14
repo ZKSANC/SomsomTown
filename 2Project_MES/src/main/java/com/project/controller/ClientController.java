@@ -103,12 +103,13 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/client/updatePro", method = RequestMethod.POST)
-	public String updatePro(ClientDTO clientDTO) {
+	public String updatePro(HttpServletRequest request, ClientDTO clientDTO) {
+		String cli_cd = request.getParameter("cli_cd");
 
 		clientService.updateClient(clientDTO);
 
 		// 주소변경 하면서 이동
-		return "redirect:/client/clientInfo";
+		return "redirect:/client/update?cli_cd="+cli_cd;
 	}
 
 	@RequestMapping(value = "/client/delete", method = RequestMethod.POST)
@@ -123,6 +124,16 @@ public class ClientController {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+
+		// 주소변경 하면서 이동
+		return "redirect:/client/clientInfo";
+	}
+
+	@RequestMapping(value = "/client/deleteOne", method = RequestMethod.GET)
+	public String deleteOne(HttpServletRequest request) {
+		String cli_cd = request.getParameter("cli_cd");
+
+		clientService.deleteClient(cli_cd);
 
 		// 주소변경 하면서 이동
 		return "redirect:/client/clientInfo";
@@ -191,6 +202,20 @@ public class ClientController {
 		model.addAttribute("pageDTO", pageDTO);
 		// 주소변경 없이 이동
 		return "client/clientSearchPop";
+	}
+
+	@RequestMapping(value = "/client/clientDetail", method = RequestMethod.GET)
+	public String clientDetail(HttpServletRequest request, Model model) {
+		System.out.println("ClientController clientDetail()");
+		
+		String cli_cd = request.getParameter("cli_cd");
+
+		ClientDTO clientDTO = clientService.getClientInfo(cli_cd);
+
+		model.addAttribute("clientDTO", clientDTO);
+		
+		// 주소변경 없이 이동
+		return "client/clientDetail";
 	}
 
 }

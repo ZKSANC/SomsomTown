@@ -87,8 +87,13 @@ public class OrderController {
 
 			int count=orderService.getOrderCount(pageDTO);
 			pageDTO.setCount(count);
-
+			
+			OrderDTO orderDTO=new OrderDTO();
+			orderDTO.setCli_nm(request.getParameter("cliS_nm"));
+			orderDTO.setEmp_nm(request.getParameter("empS_nm"));
+			
 			model.addAttribute("pageDTO", pageDTO);
+			model.addAttribute("searchDTO", orderDTO);
 			model.addAttribute("orderInsertList", orderInsertList);
 			return "order/orderInsert";
 		}
@@ -137,7 +142,14 @@ public class OrderController {
 
 			int count=orderService.getOrderCount(pageDTO);
 			pageDTO.setCount(count);
+			
+			OrderDTO orderDTO=new OrderDTO();
+			orderDTO.setCli_nm(request.getParameter("cliS_nm"));
+			orderDTO.setEmp_nm(request.getParameter("empS_nm"));
+			orderDTO.setProd_nm(request.getParameter("prodS_nm"));
+			
 			model.addAttribute("pageDTO", pageDTO);
+			model.addAttribute("searchDTO", orderDTO);
 			model.addAttribute("orderList", orderList);
 			return "order/orderInfo";
 		}

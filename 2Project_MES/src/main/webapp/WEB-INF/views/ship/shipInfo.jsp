@@ -33,20 +33,20 @@
 		$('#shipInfo').submit(function(){
 			last = $('.ship_count').length;
 			for(i=1;i<=last;i++) {
-				if($('#ship_count'+i).val()!=""&&$('#ship_date'+i).val()==""){
-					alert("출하일자를 입력하세요");
-					return false;
-				}else if($('#ship_count'+i).val()==""&&$('#ship_date'+i).val()!=""){
-					alert("출하량을 입력하세요");
-					return false;
-				}
-// 				else if($('#ship_count'+i).val()==""&&$('#ship_date'+i).val()==""){
-// 					alert("저장할 데이터가 없습니다");
+// 				if($('#ship_count'+i).val()==""&&$('#ship_date'+i).val()==""){
+// 					alert("저장할 데이터가 없습니다.");
 // 					return false;
 // 				}
+				if($('#ship_count'+i).val()!=""&&$('#ship_date'+i).val()==""){
+					alert("출하일자를 입력하세요.");
+					return false;
+				}else if($('#ship_count'+i).val()==""&&$('#ship_date'+i).val()!=""){
+					alert("출하량을 입력하세요.");
+					return false;
+				}
 				var num = /[0-9]/;
 				if(!num.test($('#ship_count'+i).val())&&$('#ship_date'+i).val()!=""){
-					alert("숫자만 입력");
+					alert("숫자만 입력하세요.");
 					return false;
 					}
 				if(parseInt($('#ship_count'+i).val()) > parseInt($('#ship_ifcount'+i).val())&&$('#ship_date'+i).val()!=""){
@@ -57,11 +57,22 @@
 					alert("재고 수량이 부족합니다.");
 					return false;
 					}
-				if($('#ord_date'+i).val()>$('#ship_date'+i).val()){
+				if($('#ship_count'+i).val()!=""&&$('#ord_date'+i).val()>$('#ship_date'+i).val()){
 					alert("출하일자를 바르게 입력하세요.");
 					return false;
 				}
 			}
+		});
+		
+		$('#btnS_cel').click(function(){
+			$('input[id=cliS_cd]').removeAttr('value');
+			$('input[id=cliS_nm]').removeAttr('value');
+			$('input[id=prodS_cd]').removeAttr('value');
+			$('input[id=prodS_nm]').removeAttr('value');
+			$('input[id=ordS_date]').removeAttr('value');
+			$('input[id=ordS_date_end]').removeAttr('value');
+			$('input[id=ordS_d_date]').removeAttr('value');
+			$('input[id=ordS_d_date_end]').removeAttr('value');
 		});
 	});
 </script>
@@ -87,7 +98,7 @@
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
-								<h1>출하관리</h1>
+								<h1>영업관리</h1>
 							</div>
 						</div>
 					</div>
@@ -114,17 +125,18 @@
 							<div class="card-body card-block">
 								<form action="${pageContext.request.contextPath }/ship/shipInfo" method="get" class="form-inline">
 									<div class="search-div">
-										<span class="search-cl">거래처</span><input type="text" id="cliS_cd" name="cli" placeholder="Client Code" readonly><input type="text" id="cliS_nm" placeholder="Client Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('cliS')"><i class="ti-search"></i></button>
+										<span class="search-cl">거래처</span><input type="text" id="cliS_cd" name="cli" value="${pageDTO.search }" placeholder="Client Code" readonly><input type="text" id="cliS_nm" name="cliS_nm" value="${searchDTO.cli_nm }" placeholder="Client Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('cliS')"><i class="ti-search"></i></button>
 									</div>
 									<div class="search-div">
-										<span class="search-cl2">수주일자</span><input type="date" id="ordS_date" name="ord_date"><input type="date" id="ordS_date_end" name="ord_date_end">
+										<span class="search-cl2">수주일자</span><input type="date" id="ordS_date" name="ord_date" value="${pageDTO.search3 }"> ~ <input type="date" id="ordS_date_end" name="ord_date_end" value="${pageDTO.search4 }">
 									</div>
 									<div class="search-div">
-										<span class="search-cl2">품목</span><input type="text" id="prodS_cd" name="prod" placeholder="Prod Code" readonly><input type="text" id="prodS_nm" placeholder="Prod Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('prodS')"><i class="ti-search"></i></button>
+										<span class="search-cl2">품목</span><input type="text" id="prodS_cd" name="prod" value="${pageDTO.search2 }" placeholder="Prod Code" readonly><input type="text" id="prodS_nm" name="prodS_nm" value="${searchDTO.prod_nm }" placeholder="Prod Name" readonly><button type="button" class="input-group-addon search-btn" style="cursor: pointer;" onclick="searchPop('prodS')"><i class="ti-search"></i></button>
 									</div>
 									<div class="search-div2">
-										<span class="search-cl">납품예정일</span><input type="date" id="ordS_d_date" name="ord_d_date"><input type="date" id="ordS_d_date_end" name="ord_d_date_end">
+										<span class="search-cl">납품예정일</span><input type="date" id="ordS_d_date" name="ord_d_date" value="${pageDTO.search5 }"> ~ <input type="date" id="ordS_d_date_end" name="ord_d_date_end" value="${pageDTO.search6 }">
 										<input type="submit" class="btn btn-primary float-right" style="margin-top: 6px" value="검색">
+										<input type="reset" id="btnS_cel" class="btn btn-secondary float-right" style="margin: 6px 5px 0 0 " value="취소">
 									</div>
 								</form>
 							</div>
@@ -138,10 +150,14 @@
 		<!-- .content -->
 		<form action="${pageContext.request.contextPath }/ship/shipInfoPro" id="shipInfo" method="POST">
 		<div class="content">
-			<div style="width: 100%; height: 50px">
-				<button type="reset" class="btn btn-secondary float-right" style="margin: 2px">취소</button>
-				<button type="submit" class="btn btn-primary float-right" style="margin: 2px">저장</button>
-			</div>
+			<c:if test="${!empty sessionScope.emp_cd }">
+				<c:if test="${sessionScope.emp_position ne '사원' }">
+					<div style="width: 100%; height: 50px">
+						<button type="reset" class="btn btn-secondary float-right" style="margin: 2px">취소</button>
+						<button type="submit" class="btn btn-primary float-right" style="margin: 2px">저장</button>
+					</div>
+				</c:if>
+			</c:if>
 			<div class="animated fadeIn">
 				<div class="row">
 					<div class="col-lg">
@@ -178,11 +194,10 @@
 													<td>${shipDTO.prod_cd }</td>
 													<td>${shipDTO.prod_nm }</td>
 													<td>${shipDTO.ord_count }</td>
-													<td><input type="hidden" id="ship_ifcount${status.count }" value="${shipDTO.ord_count }">${shipDTO.ord_count }</td>
-<!-- 													ord_count=ship_ifcount -->
+													<td><input type="hidden" id="ship_ifcount${status.count }" name="ship_ifcount" value="${shipDTO.ord_count }">${shipDTO.ord_count }</td>
+ 													<!-- ord_count=ship_ifcount -->
 													<td>${shipDTO.prod_count - shipDTO.ord_count }</td>
 													<td><input type="hidden" id="ship_inven${status.count }" value="${shipDTO.prod_count }">${shipDTO.prod_count }</td>
-<%-- 													<td><input type="hidden" name="ship_over" value="${shipDTO.ship_over }">${shipDTO.ship_over }</td> --%>
 													<td><input type="text" id="ship_count${status.count }" name="ship_count" class="ship_count"></td>
 													<td><input type="date" id="ship_date${status.count }" name="ship_date" class="ship_date"></td>
 													<td>${shipDTO.cli_nm }</td>
@@ -190,7 +205,6 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
 						</div>
 					</div>

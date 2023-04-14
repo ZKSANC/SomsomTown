@@ -70,8 +70,10 @@ public class OmatController {
 
 		System.out.println("OmatController /omat/omatupdatePro finished");
 		return "redirect:/omat/omatbeList";
+
 //		return null;
 	}
+
 	
 	@RequestMapping(value = "/omat/omatpopPro", method = RequestMethod.GET)
 	public String omatpopPro(HttpServletRequest request, Model model) {

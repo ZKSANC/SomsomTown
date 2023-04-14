@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>clientSearchPop</title>
+<title>productSearchPop3</title>
 <meta name="description" content="Ela Admin - HTML5 Admin Template">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,9 +40,10 @@
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 <script type="text/javascript">
-	function search(cli_cd) {
-		// 부모창의 input 요소에 선택한 거래처 코드를 넣어줌
-		opener.document.getElementById("clientSearchId").value = cli_cd;
+	function search(prod_cd, prod_nm) {
+		// 부모창의 input 요소에 선택한 품번값을 넣어줌
+		opener.document.getElementById("productSearchId2").value = prod_cd;
+		opener.document.getElementById("productSearchName2").value = prod_nm;
 		// 자식 창을 닫음
 		self.close();
 	}
@@ -71,26 +72,26 @@
 					<div class="card m-0">
 						<div class="card-body card-block">
 							<form
-								action="${pageContext.request.contextPath }/client/clientSearchPop"
+								action="${pageContext.request.contextPath }/product/productSearchPop3"
 								method="get" class="form-inline">
 								<div class="form-group col-6 mb-1">
-									<label class="pr-1 form-control-label">거래처코드</label>&nbsp;&nbsp;<input
+									<label class="pr-1 form-control-label">품번</label>&nbsp;&nbsp;<input
 										type="text" name="search" class="form-control "
-										placeholder="Client Code">
+										placeholder="Prod Code">
 								</div>
 								<div class="form-group col-6 mb-1">
-									<label class="pr-1  form-control-label">거래처명</label>&nbsp;&nbsp;<input
+									<label class="pr-1  form-control-label">품명</label>&nbsp;&nbsp;<input
 										type="text" name="search2" class="form-control "
-										placeholder="Client Name">
+										placeholder="Prod Name">
 								</div>
 								<div class="form-group col-6 mt-1">
-									<label class="pr-1  form-control-label">거래처구분</label>&nbsp;&nbsp;
+									<label class="pr-1  form-control-label">자재유형</label>&nbsp;&nbsp;
 									<div class="p-0 col">
 										<select name="search3" id="select" class="form-control">
 											<option>전체</option>
-											<option value="협력사">협력사</option>
-											<option value="고객사">고객사</option>
-											<option value="자사">자사</option>
+											<option value="원자재">원자재</option>
+											<option value="부자재">부자재</option>
+											<option value="완제품">완제품</option>
 										</select>
 									</div>
 								</div>
@@ -99,46 +100,49 @@
 										value="검색"> <input type="reset"
 										class="btn btn-secondary float-right reset" value="취소">
 								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</form>
 	<!-- 	검색창 -->
 
-	<div class="content">
+	<div class="content m-1">
 		<div class="animated fadeIn">
 			<div class="row">
 				<div class="col-lg">
 					<div class="card">
 						<div class="card-header">
-							<strong class="card-title">거래처</strong>
+							<strong class="card-title">품목</strong>
 						</div>
 						<div class="card-body">
-							<table id="hover_tb" class="table table-striped table-bordered">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col" style="width: 20%">거래처코드</th>
-										<th scope="col" style="width: 20%">거래처명</th>
-										<th scope="col" style="width: 20%">구분</th>
-										<th scope="col" style="width: 20%">업태</th>
-										<th scope="col" style="width: 20%">종목</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="clientDTO" items="${clientInfo }">
-										<tr onclick="search('${clientDTO.cli_cd }')">
-											<td scope="row">${clientDTO.cli_cd }</td>
-											<td>${clientDTO.cli_nm }</td>
-											<td>${clientDTO.cli_type }</td>
-											<td>${clientDTO.cli_business }</td>
-											<td>${clientDTO.cli_prod }</td>
+							<form name="productSearch">
+								<table id="hover_tb" class="table table-striped table-bordered">
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">품번</th>
+											<th scope="col">품명</th>
+											<th scope="col">자재유형</th>
+											<th scope="col">단위</th>
+											<th scope="col">재질</th>
+											<th scope="col">규격</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										<c:forEach var="productDTO" items="${productInfo }">
+											<tr onclick="search('${productDTO.prod_cd }','${productDTO.prod_nm }')">
+												<td scope="row">${productDTO.prod_cd }</td>
+												<td>${productDTO.prod_nm }</td>
+												<td>${productDTO.prod_mat }</td>
+												<td>${productDTO.prod_unit }</td>
+												<td>${productDTO.prod_text }</td>
+												<td>${productDTO.prod_size }</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</form>
 							<!-- 페이징 -->
 							<div class="col p-0 mt-3">
@@ -149,13 +153,13 @@
 										<c:if test="${pageDTO.startPage <= pageDTO.pageBlock }">
 											<li class="paginate_button page-item previous disabled">
 												<a
-												href="${pageContext.request.contextPath}/client/clientSearchPop?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												href="${pageContext.request.contextPath}/product/productSearchPop3?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
 												class="page-link">Previous</a>
 											</li>
 										</c:if>
 										<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 											<li class="ppaginate_button page-item previous"><a
-												href="${pageContext.request.contextPath}/client/clientSearchPop?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												href="${pageContext.request.contextPath}/product/productSearchPop3?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
 												class="page-link">Previous</a></li>
 										</c:if>
 										<!-- 이전 -->
@@ -169,7 +173,7 @@
 											<c:if test="${i!=pageDTO.pageNum }">
 												<li class="paginate_button page-item "><a
 													class="page-link"
-													href="${pageContext.request.contextPath}/client/clientSearchPop?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">${i}</a>
+													href="${pageContext.request.contextPath}/product/productSearchPop3?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">${i}</a>
 												</li>
 											</c:if>
 										</c:forEach>
@@ -178,13 +182,13 @@
 										<c:if test="${pageDTO.endPage >= pageDTO.pageCount }">
 											<li class="paginate_button page-item next disabled"
 												id="bootstrap-data-table_next"><a
-												href="${pageContext.request.contextPath}/client/clientSearchPop?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												href="${pageContext.request.contextPath}/product/productSearchPop3?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
 												class="page-link">Next</a></li>
 										</c:if>
 										<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 											<li class="paginate_button page-item next"
 												id="bootstrap-data-table_next"><a
-												href="${pageContext.request.contextPath}/client/clientSearchPop?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												href="${pageContext.request.contextPath}/product/productSearchPop3?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
 												class="page-link">Next</a></li>
 										</c:if>
 										<!-- 다음 -->
