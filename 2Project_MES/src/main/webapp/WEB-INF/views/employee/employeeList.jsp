@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/cs-skin-elastic.css">
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css"> --%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
@@ -191,7 +191,7 @@ function fun1(index) {
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
-								<h1>사용자 관리</h1>
+								<h1 class="m-0">시스템 관리</h1>
 							</div>
 						</div>
 					</div>
@@ -254,7 +254,7 @@ function fun1(index) {
 					<div class="col-lg">
 						<div class="card">
 							<div class="card-header">
-								<strong class="card-title">사용자 </strong> <div class="count1">총 ${pageDTO.count}건</div>
+								<strong class="card-title">사용자 </strong> <div class="count1  float-right">총 ${pageDTO.count}건</div>
 							</div>
 							<div class="card-body">
 								<table class="table table-striped table-bordered">
