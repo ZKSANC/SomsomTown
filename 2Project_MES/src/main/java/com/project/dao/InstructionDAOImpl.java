@@ -70,6 +70,20 @@ public class InstructionDAOImpl implements InstructionDAO{
 		sqlSession.delete(namespace+".deleteInst", inst_cd);
 	}
 
+
+
+	@Override
+	public void fcountupdate(InstructionDTO instructionDTO) {
+		System.out.println("InstDAOImpl fcountupdate()");
+		System.out.println(instructionDTO.getInst_count());
+		System.out.println(instructionDTO.getInst_fcount());
+		System.out.println(instructionDTO.getInst_st());
+		
+		sqlSession.update(namespace+".fcoutUpdate", instructionDTO);
+		System.out.println(instructionDTO.getInst_count());
+		System.out.println(instructionDTO.getInst_fcount());
+	}
+	
 	
 
 }

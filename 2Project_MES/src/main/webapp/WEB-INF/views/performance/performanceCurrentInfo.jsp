@@ -92,7 +92,7 @@
 									method="get" class="form-inline">
 									<div class="form-group col-6 mb-1">
 										<label class="pr-1 form-control-label mr-2">지시번호</label> <input
-											type="text" name="searchInstCd" value="${instructionDTO.inst_cd }"class="form-control instCd" placeholder="Inst Code">
+											type="text" name="searchInstCd" value="${pageDTO.search}"class="form-control instCd" placeholder="Inst Code">
 									</div>
 									<div class="form-group col-6 mb-1">
 										<label for="searchLine" class="pr-1 form-control-label mr-2">라인</label>
@@ -189,8 +189,8 @@
 												<td><input type="text" id="insertProdUnit"
 													value="${instructionDTO.prod_unit}" disabled
 													class="form-control"></td>
-												<td><input type="text" id="insertProdCount"
-													value="${instructionDTO.prod_count}" disabled
+												<td><input type="text" id="insertInstCount"
+													value="${instructionDTO.inst_count}" disabled
 													class="form-control"></td>
 												<td><input type="text" id="insertPerfGd"
 													name="perf_good" value="0" class="form-control"></td>
@@ -485,7 +485,7 @@
 		// 삭제 버튼
 		$(document).on("click", "#deletePerfBtn", function(){
 			console.log(jQuery('#insertPerfCd').val());
-			location.href='${pageContext.request.contextPath}/performance/deletePerf?delPerfCd='+jQuery('#insertPerfCd').val();
+			location.href='${pageContext.request.contextPath}/performance/deletePerf?delPerfCd='+jQuery('#insertPerfCd').val()+'&delInstCd='+jQuery('#insertInstCd').val();
 		});
 		
 		// 라인 팝업

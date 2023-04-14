@@ -90,12 +90,12 @@
 										<!-- 이전 -->
 										<c:if test="${pageDTO.startPage <= pageDTO.pageBlock }">
 											<li class="paginate_button page-item previous disabled">
-												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&btnId=${pageDTO.search3}"
 												class="page-link">Previous</a></li>
 										</c:if>
 										<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 											<li class="ppaginate_button page-item previous" >
-												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}"
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage - pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&btnId=${pageDTO.search3}"
 												class="page-link">Previous</a>
 											</li>
 										</c:if>
@@ -109,7 +109,7 @@
 											</c:if>
 											<c:if test="${i!=pageDTO.pageNum }">
 												<li class="paginate_button page-item ">
-													<a class="page-link" href="${pageContext.request.contextPath}/line/linePop?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}">${i}</a>
+													<a class="page-link" href="${pageContext.request.contextPath}/line/linePop?pageNum=${i}&search=${pageDTO.search}&search2=${pageDTO.search2}&btnId=${pageDTO.search3}">${i}</a>
 												</li>
 											</c:if>
 										</c:forEach>
@@ -117,12 +117,12 @@
 										<!-- 다음 -->																				
 										<c:if test="${pageDTO.endPage >= pageDTO.pageCount }">
 											<li class="paginate_button page-item next disabled" id="bootstrap-data-table_next">
-												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}" class="page-link">Next</a>
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&btnId=${pageDTO.search3}" class="page-link">Next</a>
 											</li>
 										</c:if>
 										<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 											<li class="paginate_button page-item next" id="bootstrap-data-table_next">
-												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&search3=${pageDTO.search3}" class="page-link">Next</a>
+												<a href="${pageContext.request.contextPath}/line/linePop?pageNum=${pageDTO.startPage + pageDTO.pageBlock }&search=${pageDTO.search}&search2=${pageDTO.search2}&btnId=${pageDTO.search3}" class="page-link">Next</a>
 											</li>
 										</c:if>
 										<!-- 다음 -->																				

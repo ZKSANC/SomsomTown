@@ -163,31 +163,38 @@ public class PerformanceController {
 	}
 
 	@RequestMapping(value = "/performance/insertPerf", method = RequestMethod.POST)
-	public String insertPerfPro(PerformanceDTO performanceDTO) {
-		System.out.println("instructionController insertInstPro()");
+	public String insertPerfPro(PerformanceDTO performanceDTO, InstructionDTO instructionDTO) {
+		System.out.println("instructionController insertPerf()");
 		performanceService.insertPerf(performanceDTO);
-		System.out.println(performanceDTO.getPerf_cause());
+		
+		instructionService.fcountupdate(instructionDTO);
+		
+
 		return "redirect:/performance/performanceCurrentInfo";
 	}
 
 	@RequestMapping(value = "/performance/updatePerf", method = RequestMethod.POST)
-	public String updatePerfPro(HttpServletRequest request, PerformanceDTO performanceDTO) {
-		System.out.println("instructionController updateInstPro()");
+	public String updatePerfPro(HttpServletRequest request, PerformanceDTO performanceDTO, InstructionDTO instructionDTO) {
+		System.out.println("instructionController updatePerf()");
 		String inst_cd=request.getParameter("inst_cd");
+		
 		performanceDTO.setInst_cd(inst_cd);
-		System.out.println(performanceDTO.getPerf_cause());
-
 		performanceService.updatePerf(performanceDTO);
+		instructionService.fcountupdate(instructionDTO);
+		
 		return "redirect:/performance/performanceCurrentInfo";
 	}
 	
 	@RequestMapping(value = "/performance/deletePerf", method = RequestMethod.GET)
-	public String deletePerfPro(HttpServletRequest request, String perf_cd) {
+	public String deletePerfPro(HttpServletRequest request, String perf_cd, InstructionDTO instructionDTO) {
 		System.out.println("instructionController deleteInstPro()");
-		System.out.println(request.getParameter("delInstCd"));
-		perf_cd=request.getParameter("delPerfCd");
-		performanceService.deletePerf(perf_cd);
+		String inst_cd=request.getParameter("inst_cd");
 		
+		perf_cd=request.getParameter("delPerfCd");
+		inst_cd=request.getParameter("delInstCd");
+		instructionDTO.setInst_cd(inst_cd);
+		performanceService.deletePerf(perf_cd);
+		instructionService.fcountupdate(instructionDTO);
 		return "redirect:/performance/performanceCurrentInfo";
 	}
 
