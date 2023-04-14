@@ -198,7 +198,7 @@
 		$('#insertLineNm', opener.document).val(popLineNm);
 		$('#insertProdNm', opener.document).val(popProdNm);
 		$('#insertProdUnit', opener.document).val(popProdUnit);
-		$('#insertProdCount', opener.document).val(popInstCount);
+		$('#insertInstCount', opener.document).val(popInstCount);
 		$('#insertOrdCd', opener.document).val(popOrdCd);
 		
 		self.close();

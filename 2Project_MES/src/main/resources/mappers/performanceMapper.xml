@@ -6,7 +6,7 @@
 	<select id="performanceCurrentInfo"
 		resultType="com.project.domain.PerformanceDTO">
 		select pe.perf_cd, pe.perf_date, l.line_nm, p.prod_cd, p.prod_nm,
-		p.prod_unit, pe.perf_good, pe.perf_err, pe.perf_cause, pe.perf_note,
+		p.prod_unit, i.inst_count,pe.perf_good, pe.perf_err, pe.perf_cause, pe.perf_note,
 		i.inst_cd, o.ord_cd, c.cli_nm
 		from performance pe
 		join instruction i

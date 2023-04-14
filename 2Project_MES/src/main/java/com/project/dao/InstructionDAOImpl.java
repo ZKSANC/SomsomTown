@@ -72,9 +72,15 @@ public class InstructionDAOImpl implements InstructionDAO{
 
 
 	@Override
-	public void fcountupdate(int fcount) {
+	public void fcountupdate(InstructionDTO instructionDTO) {
+		System.out.println("InstDAOImpl fcountupdate()");
+		System.out.println(instructionDTO.getInst_count());
+		System.out.println(instructionDTO.getInst_fcount());
+		System.out.println(instructionDTO.getInst_st());
 		
-		sqlSession.update(namespace+".fcoutUpdate", fcount);
+		sqlSession.update(namespace+".fcoutUpdate", instructionDTO);
+		System.out.println(instructionDTO.getInst_count());
+		System.out.println(instructionDTO.getInst_fcount());
 	}
 	
 	
