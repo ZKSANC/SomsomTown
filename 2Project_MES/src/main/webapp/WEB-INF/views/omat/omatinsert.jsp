@@ -133,7 +133,7 @@ function openPopUp() {
 												<tr>
 												<td><input type="button" value="조회" onclick="openPopUp()" class="btn btn-outline-link"></td>
 													<td><input type="text" name="omat_cd"
-										class="omat_cd" readonly></td>
+										class="omat_cd" disabled></td>
 													<td><input
 										type="text" name="prod_cd" class="prod_cd" id="prod_cd" readonly></td>
 													<td><input type="text" name="omat_stg" class="omat_stg" id="omat_stg" readonly></td>

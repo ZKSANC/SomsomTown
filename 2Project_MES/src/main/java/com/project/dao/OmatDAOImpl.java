@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.project.domain.ImatDTO;
 import com.project.domain.OmatDTO;
 import com.project.domain.PageDTO;
 import com.project.domain.ProductDTO;
@@ -21,7 +22,7 @@ public class OmatDAOImpl implements OmatDAO{
 	@Override
 	public void insertOmat(OmatDTO omatDTO) {
 		System.out.println("OmatDAOImpl insertOmat()");
-
+		sqlSession.update(namespace+".updatOmatStg", omatDTO);
 		sqlSession.insert(namespace+".insertOmat", omatDTO);
 	}
 
@@ -42,14 +43,6 @@ public class OmatDAOImpl implements OmatDAO{
 
 	}
 
-	@Override
-	public List<ProductDTO> getOmatprodList1(PageDTO pageDTO) {
-		System.out.println("OmatDAOImpl getOmatprodList1()");
-
-		pageDTO.setStartRow(pageDTO.getStartRow()-1);
-		return sqlSession.selectList(namespace+".getOmatprodList1", pageDTO);
-
-	}
 
 	@Override
 	public int getOmatCount(PageDTO pageDTO) {
@@ -59,10 +52,10 @@ public class OmatDAOImpl implements OmatDAO{
 
 
 	@Override
-	public void deleteList(String omat_cd) {
+	public void deleteList(OmatDTO omatDTO) {
 	    System.out.println("OmatDAOImpl deleteList()");
-
-	    sqlSession.delete(namespace+".deleteList", omat_cd);
+	    sqlSession.update(namespace+".updatOmatdel", omatDTO);
+	    sqlSession.delete(namespace+".deleteList", omatDTO);
 	}
 
 	@Override
@@ -78,6 +71,7 @@ public class OmatDAOImpl implements OmatDAO{
 	@Override
 	public void updateOmat(OmatDTO omatDTO) {
 		System.out.println("OmatDAOImpl updateOmat()");
+		sqlSession.update(namespace+".updatOmatup", omatDTO);
 		sqlSession.update(namespace+".updateOmat", omatDTO);
 
 	}

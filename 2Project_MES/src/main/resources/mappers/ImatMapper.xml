@@ -67,7 +67,7 @@
     
     <select id="getIomatList" resultType="com.project.domain.ImatDTO">
     select distinct p.prod_cd,p.prod_nm,p.prod_mat,p.prod_unit,p.prod_count as iomat_count
-	from product p join in_material i on p.prod_cd=i.prod_cd
+	from product p left join in_material i on p.prod_cd=i.prod_cd
 	<if test="search != null">
         	where p.prod_cd like CONCAT('%',#{search},'%')
         </if>
@@ -124,5 +124,26 @@
     <update id="updateImat">
     	update in_material set imat_cd = #{imat_cd}, prod_cd = #{prod_cd}, imat_stg = #{imat_stg},imat_count = #{imat_count},imat_note = #{imat_note}
     	where imat_cd = #{imat_cd}   
+    </update>
+    
+    
+    <update id="updatImatStg">
+    	 update product
+		join in_material on product.prod_cd=in_material.prod_cd
+		set product.prod_count = product.prod_count+#{imat_count}
+    	where product.prod_cd=#{prod_cd}
+    </update>
+    
+     <update id="updatImatdel">
+    	 update product
+		join in_material on product.prod_cd=in_material.prod_cd
+		set product.prod_count = product.prod_count-#{imat_count}
+    	where product.prod_cd=#{prod_cd} 
+    </update>
+      <update id="updatImatup">
+    	 update product
+		join in_material on product.prod_cd=in_material.prod_cd
+		set product.prod_count = product.prod_count-#{iomat_count}+#{imat_count}
+    	where product.prod_cd=#{prod_cd}
     </update>
 </mapper>

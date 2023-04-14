@@ -99,4 +99,24 @@
     <select id="getMaxCd" resultType="java.lang.Integer">
         select max(cast(SUBSTRING(omat_cd,3) as unsigned)) from out_material;
     </select>
+    
+     <update id="updatOmatStg">
+    	 update product
+		join out_material on product.prod_cd=out_material.prod_cd
+		set product.prod_count = product.prod_count-#{omat_count}
+    	where product.prod_cd=#{prod_cd}
+    </update>
+    
+     <update id="updatOmatdel">
+    	 update product
+		join out_material on product.prod_cd=out_material.prod_cd
+		set product.prod_count = product.prod_count+#{omat_count}
+    	where product.prod_cd=#{prod_cd} 
+    </update>
+      <update id="updatOmatup">
+    	 update product
+		join out_material on product.prod_cd=out_material.prod_cd
+		set product.prod_count = product.prod_count+#{iomat_count}-#{omat_count}
+    	where product.prod_cd=#{prod_cd}
+    </update>
 </mapper>

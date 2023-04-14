@@ -90,7 +90,9 @@ function openNewWindow(url) {
 </script>
 
 <body>
-
+<%
+String imat_count=(String)request.getAttribute("imat_count");
+%>
 
 
 	<!-- Left Panel1 -->
@@ -152,14 +154,14 @@ function openNewWindow(url) {
 												<tr>
 												<td><input type="button" value="조회" onclick="openPopUp()" class="btn btn-outline-link"></td>
 													<td><input type="text" name="imat_cd"
-										class="imat_cd" readonly></td>
+										class="imat_cd" style="width:100px;" disabled></td>
 													<td><input
-										type="text" name="prod_cd" class="prod_cd" id="prod_cd" readonly></td>
-													<td><input type="text" name="imat_stg" class="imat_stg" id="imat_stg" readonly></td>
+										type="text" name="prod_cd" class="prod_cd" id="prod_cd" style="width:100px;" readonly ></td>
+													<td><input type="text" name="imat_stg" class="imat_stg" id="imat_stg" style="width:100px;" readonly></td>
 													<td><input type="text" name="imat_count" id="imat_count" 
-										class="imat_count"></td>
+										class="imat_count" style="width:100px;"></td>
 													<td><input
-										type="text" name="imat_note" class="imat_note"></td>
+										type="text" name="imat_note" class="imat_note" style="width:100px;"></td>
 													
 												</tr>
 

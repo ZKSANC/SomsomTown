@@ -19,7 +19,14 @@ public class ImatDTO extends ProductDTO{
 	private String imat_note;
 	private String prod_unit;
 	private String prod_mat;
+	private int prod_count;
 
+	public int getProd_count() {
+		return prod_count;
+	}
+	public void setProd_count(int prod_count) {
+		this.prod_count = prod_count;
+	}
 	@Override
 	public String getProd_nm() {
 		return prod_nm;
