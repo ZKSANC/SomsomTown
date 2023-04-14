@@ -36,7 +36,8 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/performanceCurr.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/performanceCurr.css">
 </head>
 <body>
 	<c:if test="${empty sessionScope.emp_cd }">

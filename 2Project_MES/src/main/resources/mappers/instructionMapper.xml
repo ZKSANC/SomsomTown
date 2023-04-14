@@ -116,7 +116,7 @@
 	delete from instruction
 	where inst_cd=#{inst_cd}
 	</delete>
-	
+
 	<update id="fcoutUpdate">
 	update instruction
 	set inst_fcount=(select sum(perf_good)-sum(perf_err)
@@ -129,6 +129,7 @@
                		)
 	where inst_cd=#{inst_cd}
 	</update>
+
 <!-- id-"이름" spl구문 하나하나 이름
 	 ? 대신에 MemberDTO 멤버변수명 #{id}	-->
 <!-- 	<insert id="insertTest"> -->

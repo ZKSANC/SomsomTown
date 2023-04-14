@@ -71,6 +71,7 @@ public class InstructionDAOImpl implements InstructionDAO{
 	}
 
 
+
 	@Override
 	public void fcountupdate(InstructionDTO instructionDTO) {
 		System.out.println("InstDAOImpl fcountupdate()");
@@ -82,7 +83,6 @@ public class InstructionDAOImpl implements InstructionDAO{
 		System.out.println(instructionDTO.getInst_count());
 		System.out.println(instructionDTO.getInst_fcount());
 	}
-	
 	
 	
 

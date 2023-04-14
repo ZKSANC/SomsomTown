@@ -76,6 +76,7 @@ public class InstructionServiceImpl implements InstructionService{
 		instDAO.deletInst(inst_cd);
 	}
 
+
 	@Override
 	public void fcountupdate(InstructionDTO instructionDTO) {
 		System.out.println("InstserviceImpl fcountupdate()");
@@ -84,8 +85,7 @@ public class InstructionServiceImpl implements InstructionService{
 		System.out.println(instructionDTO.getInst_fcount());
 		
 	}
-	
-	
+
 
 
 
