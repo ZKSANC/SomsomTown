@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/performanceCurr.css">	
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.3.js"></script>	
@@ -109,7 +109,7 @@ $(document).ready(function(){
 								<strong class="card-title">그룹코드 </strong>
 							</div>
 							<div class="card-body">
-								<table id="hover_tbl" class="table table-striped table-bordered">
+								<table id="hover_tb" class="table table-striped table-bordered table-hover">
 									<thead class="thead-dark">
 										<tr>
 											<th scope="col">그룹코드</th>
