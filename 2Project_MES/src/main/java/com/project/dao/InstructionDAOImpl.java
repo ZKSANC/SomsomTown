@@ -70,6 +70,14 @@ public class InstructionDAOImpl implements InstructionDAO{
 		sqlSession.delete(namespace+".deleteInst", inst_cd);
 	}
 
+
+	@Override
+	public void fcountupdate(int fcount) {
+		
+		sqlSession.update(namespace+".fcoutUpdate", fcount);
+	}
+	
+	
 	
 
 }

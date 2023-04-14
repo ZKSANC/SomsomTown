@@ -18,4 +18,6 @@ public interface InstructionService {
 
 	public void deleteInst(String inst_cd);
 
+	public void fcountupdate(int fcount);
+
 }
