@@ -10,10 +10,10 @@ public interface OmatService {
 	public List<ProductDTO> getOmatprodList(PageDTO pageDTO);
 	public int getOmatCount(PageDTO pageDTO);
 	public List<OmatDTO> getOmatbeList(PageDTO pageDTO);
-	public List<ProductDTO> getOmatprodList1(PageDTO pageDTO);
-	public void deleteList(String omat_cd);
+	public void deleteList(OmatDTO omatDTO);
 	public void insertOmat(OmatDTO omatDTO);
 	public void updateOmat(OmatDTO omatDTO);
 	public OmatDTO getOmat(String omat_cd);
 	public ProductDTO getProd(String prod_cd);
+	public void updatOmatdel(OmatDTO omatDTO);
 }

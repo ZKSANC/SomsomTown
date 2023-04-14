@@ -20,7 +20,7 @@ public interface ImatDAO {
 	
 	public ProductDTO getProd(String prod_cd);
 
-	public void deleteList(String imat_cd);
+	public void deleteList(ImatDTO imatDTO);
 
 	public void insertImat(ImatDTO imatDTO);
 

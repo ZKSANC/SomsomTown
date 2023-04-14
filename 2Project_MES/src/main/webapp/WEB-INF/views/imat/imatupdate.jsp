@@ -1,3 +1,4 @@
+<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,6 +36,7 @@
 	rel='stylesheet' type='text/css'>
 
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
 <script type="text/javascript">
 function prodchk(event) {
 // 	var imat_count = document.getElementById( 'imat_count' ).value;
@@ -52,29 +54,14 @@ function prodchk(event) {
 		
 		event.preventDefault();
 		}
-	else{
-		if(!chkStyle.test((document.getElementById( 'imat_count' ).value))){
-			alert("입고수량에는 숫자만 입력 가능합니다.");
-			document.fr.imat_count.focus();
-			//부모페이지로 이벤트전파방지
-			event.preventDefault();
-			}
-			
-	}
 	
-// 	if(!chkStyle.test((document.getElementById( 'imat_count' ).value))){
-// 		alert("입고수량에는 숫자만 입력 가능합니다.");
-// // 		$(imat_count).val="";
-// 		//부모페이지로 이벤트전파방지
-// 		event.preventDefault();
-// 		}
-		
-}
+	}
+
+
 </script>
 </head>
 
 <body>
-
 
 
 	<!-- Left Panel1 -->
@@ -120,12 +107,12 @@ function prodchk(event) {
 						<div class="card">
 							<div class="card-body">
 
-								<form name="fr" 
+								<form name="fr" id="fr"
 									action="${pageContext.request.contextPath}/imat/imatupdatePro"
-									method="post"
-									onsubmit="prodchk(event);">
+									method="post" onsubmit="prodchk(event);">
 									<table id="bootstrap-data-table"
 										class="table table-striped table-bordered">
+										
 										<thead class="thead-dark">
 											<tr>
 												<th scope="col">입고번호</th>
@@ -139,13 +126,16 @@ function prodchk(event) {
 											<tr>
 
 												<td><input type="text" name="imat_cd"
-													value="${imatDTO.imat_cd}" readonly></td>
+													value="${imatDTO.imat_cd}" readonly placeholder="입고수량"></td>
 												<td><input type="text" name="prod_cd"
-													value="${imatDTO.prod_cd}" readonly></td>
+													value="${imatDTO.prod_cd}" readonly placeholder="품번"></td>
 												<td><input type="text" name="imat_stg"
-													value="${imatDTO.imat_stg}" readonly></td>
+													value="${imatDTO.imat_stg}" readonly placeholder="입고창고"></td>
 												<td><input type="text" name="imat_count" id="imat_count" 
-													value="${imatDTO.imat_count}"></td>
+													value="${imatDTO.imat_count}">
+													<input type="hidden" name="iomat_count" id="iomat_count" 
+													value="${imatDTO.imat_count}">
+													</td>
 												<td><input type="text" name="imat_note"
 													value="${imatDTO.imat_note}"></td>
 											</tr>

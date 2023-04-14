@@ -127,10 +127,10 @@ function prodchk(event) {
 										class="table table-striped table-bordered">
 										<thead class="thead-dark">
 											<tr>
-												<th scope="col">입고번호</th>
+												<th scope="col">출고번호</th>
 												<th scope="col">품번</th>
-												<th scope="col">입고창고</th>
-												<th scope="col">입고수량</th>
+												<th scope="col">출고창고</th>
+												<th scope="col">출고수량</th>
 												<th scope="col">비고</th>
 											</tr>
 										</thead>
@@ -144,9 +144,12 @@ function prodchk(event) {
 												<td><input type="text" name="omat_stg"
 													value="${omatDTO.omat_stg}" readonly></td>
 												<td><input type="text" name="omat_count" id="omat_count"
-													value="${omatDTO.omat_count}" readonly></td>
+													value="${omatDTO.omat_count}" >
+													<input type="hidden" name="iomat_count" id="iomat_count" 
+													value="${omatDTO.omat_count}">
+													</td>
 												<td><input type="text" name="omat_note"
-													value="${omatDTO.omat_note}" readonly></td>
+													value="${omatDTO.omat_note}" ></td>
 											</tr>
 										</tbody>
 									</table>

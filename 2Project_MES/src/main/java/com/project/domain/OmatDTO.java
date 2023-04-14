@@ -12,9 +12,18 @@ public class OmatDTO extends ProductDTO{
 	private Timestamp omat_date;
 	private String omat_stg;
 	private int omat_count;
+	private int iomat_count;
+	
 	private String cli_cd;
 	private String cli_nm;
 	private String omat_note;
+	
+	public int getIomat_count() {
+		return iomat_count;
+	}
+	public void setIomat_count(int iomat_count) {
+		this.iomat_count = iomat_count;
+	}
 
 	public int getOmat_num() {
 		return omat_num;

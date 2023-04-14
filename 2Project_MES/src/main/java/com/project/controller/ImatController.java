@@ -44,31 +44,35 @@ public class ImatController {
 
 	@RequestMapping(value = "/imat/imatupdate", method = RequestMethod.GET)
 	public String imatupdate(HttpServletRequest request, Model model) {
-
+		System.out.println("ImatController imatupdate()");
 		String imat_cd = request.getParameter("imat_cd");
-
+//		int iomat_count=Integer.parseInt(request.getParameter("imat_count"));
 		ImatDTO imatDTO = ImatService.getImat(imat_cd);
 		System.out.println(imatDTO);
 		System.out.println("ImatController getImat()");
 		model.addAttribute("imatDTO", imatDTO);
+//		model.addAttribute("iomat_count", iomat_count);
 		System.out.println("ImatController imatupdate()");
-//		주소줄 변경없이 이동
-//		/WEB-INF/views/파일이름.jsp
-//		/WEB-INF/views/center/update.jsp
 		return "imat/imatupdate";
 	}
 
 	// 가상주소 http://localhost:8080/SFunWeb/board/updatePro
 	@RequestMapping(value = "/imat/imatupdatePro", method = RequestMethod.POST)
 	public String imatupdatePro(ImatDTO imatDTO) {
-		System.out.println("ImatController imatupdatePro()");
-
+		System.out.println("ImatController /imat/imatupdatePro");
+		int iomat_count=imatDTO.getIomat_count();
+		System.out.println(iomat_count);
+		
+//		int imat_count=imatDTO.getImat_count();
+//		imatDTO.setImat_count(imat_count-iomat_count);
+		System.out.println("ImatController Imat_count:" + imatDTO.getImat_count());
+		System.out.println(imatDTO.getImat_cd());
 		ImatService.updateImat(imatDTO);
 
-//		주소줄 변경하면서 이동
+		System.out.println("ImatController /imat/imatupdatePro finished");
 		return "redirect:/imat/imatbeList";
+//		return null;
 	}
-
 	
 	@RequestMapping(value = "/imat/imatpopPro", method = RequestMethod.GET)
 	public String imatpopPro(HttpServletRequest request, Model model) {
@@ -204,9 +208,12 @@ public class ImatController {
 	public String deleteList(HttpServletRequest request, Model model) {
 		System.out.println("ImatController imatdelete()");
 		String imat_cd = request.getParameter("imat_cd");
-		ImatService.deleteList(imat_cd);
-
+		ImatDTO imatDTO = ImatService.getImat(imat_cd);
+		ImatService.deleteList(imatDTO);
+		model.addAttribute("imatDTO", imatDTO);       
 //		주소줄 변경하면서 이동
+		System.out.println("deletelist final");
+//		System.out.println("ImatController  deleteList() prod_cd:" + imatbeList.get(0).getImat_num());
 		return "redirect:/imat/imatbeList";
 	}
 
@@ -219,7 +226,7 @@ public class ImatController {
 		String search3=request.getParameter("search3");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize=15;
+		int pageSize=10;
 		// 현페이지 번호 가져오기
 		String pageNum=request.getParameter("pageNum");
 		if(pageNum==null) {
@@ -276,7 +283,7 @@ public class ImatController {
 		String search3=request.getParameter("search3");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize=15;
+		int pageSize=10;
 		// 현페이지 번호 가져오기
 		String pageNum=request.getParameter("pageNum");
 		if(pageNum==null) {
@@ -333,7 +340,7 @@ public class ImatController {
 		String search3=request.getParameter("search3");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize=15;
+		int pageSize=10;
 		// 현페이지 번호 가져오기
 		String pageNum=request.getParameter("pageNum");
 		if(pageNum==null) {

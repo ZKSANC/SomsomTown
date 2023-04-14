@@ -12,10 +12,10 @@ public interface ImatService {
 	public int getIomatCount(PageDTO pageDTO);
 	public List<ImatDTO> getImatbeList(PageDTO pageDTO);
 	public List<ImatDTO> getIomatList(PageDTO pageDTO);
-//	public List<ProductDTO> getImatxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxzzzzzzzzzzzxzxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzZZprodList1(PageDTO pageDTO);
-	public void deleteList(String imat_cd);
+	public void deleteList(ImatDTO imatDTO);
 	public void insertImat(ImatDTO imatDTO);
 	public void updateImat(ImatDTO imatDTO);
 	public ImatDTO getImat(String imat_cd);
 	public ProductDTO getProd(String prod_cd);
-}
+	public void updatImatdel(ImatDTO imatDTO);
+}	

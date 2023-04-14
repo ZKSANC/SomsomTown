@@ -53,23 +53,32 @@
 
 		<div class="content">
 		
+		
 		<div class="animated fadeIn">
 				<div class="row">
 					<div class="col-lg">
-						<div class="card">
-<!-- 							<div class="card-header"> -->
-<!-- 								<strong class="card-title">Table Head</strong> -->
-<!-- 							</div> -->
-							<div class="card-body">
+							<div class="card m-0">
 													
-					<div id="table_search">
-							<form action="${pageContext.request.contextPath}/omat/omatpopsear" method="get">
-							<input type="button" value="돌아가기"  class="btn btn-outline-link btn-sm"
-							onclick="location.href='${pageContext.request.contextPath}/imat/imatpop'">
-							<input type="text" name="search" class="input_box" placeholder="품번">
-							<input type="text" name="search2" class="input_box" placeholder="품명">
-							<input type="text" name="search3" class="input_box" placeholder="자재유형">
-							<input type="submit" value="검색" class="btn btn-secondary btn-sm">
+					<div class="card-body card-block">
+					
+							<form action="${pageContext.request.contextPath}/omat/omatpopsear" method="get"
+							class="form-inline">
+							<div class="form-group col-6 mb-1">
+							<label class="pr-1 form-control-label">품번</label>&nbsp;&nbsp;
+							<input type="text" name="search" class="form-control" placeholder="Product code">
+							</div>
+							<div class="form-group col-6 mb-1">
+							<label class="pr-1 form-control-label">품명</label>&nbsp;&nbsp;
+							<input type="text" name="search2" class="form-control" placeholder="Prouduct name">
+							</div>
+							<div class="form-group col-6 mb-1">
+							<label class="pr-1 form-control-label">자재유형</label>&nbsp;&nbsp;
+							<input type="text" name="search3" class="form-control" placeholder="Product material">
+							
+							</div>
+							<div class="col p-0">
+							<input type="submit" value="검색"  class="btn btn-primary float-right ml-3">
+							</div>
 							</form>
 							</div>
 													
@@ -77,7 +86,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		
 			<div class="anomated fadeIn">
 				<div class="row">
@@ -115,6 +123,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<div class="pageNum">
 							<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 											<a href="${pageContext.request.contextPath}/omat/omatpop?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}">[이전페이지]</a>
 																	
@@ -130,6 +139,7 @@
 											<a
 								href="${pageContext.request.contextPath}/omat/omatpop?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}">[다음페이지]</a>
 										</c:if>
+										</div>
 							</div>
 						</div>
 					</div>
