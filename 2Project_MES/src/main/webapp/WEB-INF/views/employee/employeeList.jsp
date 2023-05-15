@@ -32,7 +32,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/script/jquery-3.6.3.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-window.close();
 	$('.emp_email').on('input',function(){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/employee/emailCk',
