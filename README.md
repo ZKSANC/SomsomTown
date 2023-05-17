@@ -1,4 +1,4 @@
-<img width="15%" src="https://github.com/ZKSANC/HiBook/assets/114744493/4ad5dce0-d342-42cf-a0c9-403e0e510a62"/>
+<img width="17%" src="https://github.com/ZKSANC/HiBook/assets/114744493/4ad5dce0-d342-42cf-a0c9-403e0e510a62"/>
 
 # 솜솜마을
 봉제인형 MES 생산관리 사이트 
