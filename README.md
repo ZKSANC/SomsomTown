@@ -35,9 +35,9 @@
 - View [Client jsp](https://github.com/ZKSANC/SomsomTown/tree/master/2Project_MES/src/main/webapp/WEB-INF/views/client)
 - Controller [ClientController](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/controller/ClientController.java)
 #### 영업 관리> 출하 현황 페이지 
-- Model 
-- View 
-- Controller
+- Model [ShipDAO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/ShipDAO.java), [ShipDAOImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/ShipDAOImpl.java), [ShipDTO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/domain/ShipDTO.java), [ShipService](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/ShipService.java), [ShipServiceImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/ShipServiceImpl.java), [ShipMapper](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/resources/mappers/shipMapper.xml)
+- View [ShipCurrentInfo](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/webapp/WEB-INF/views/ship/shipCurrentInfo.jsp), [ClientSearchPop](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/webapp/WEB-INF/views/client/clientSearchPop.jsp), [ProductSearchPop](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/webapp/WEB-INF/views/product/productSearchPop.jsp)
+- Controller [ShipController](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/controller/ShipController.java)
 #### 생산 관리> 생산실적 현황 페이지 
 - Model 
 - View 
