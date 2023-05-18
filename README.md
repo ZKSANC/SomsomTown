@@ -32,7 +32,7 @@
 - 간트차트
 ![2차 간트차트](https://github.com/ZKSANC/SomsomTown/assets/114744493/1b2a6375-92dd-45ee-b02e-411b0ce5b74d)
 - ERD
-![2차 erd](https://github.com/ZKSANC/SomsomTown/assets/114744493/d866aef4-eca5-48da-baef-575cf846e3c8)
+![2차 erd](https://github.com/ZKSANC/SomsomTown/assets/114744493/a73fae22-f7e2-4f9a-a78a-693bae77b336)
 
 ## 개발 코드  
 #### 기준정보 관리> 거래처 관리 페이지
