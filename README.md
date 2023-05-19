@@ -29,7 +29,7 @@
 - API, 라이브러리 : KAKAO Address API, jQuery(3.6.3), MyBatis(3.4.1), Bootstrap
 
 ## 서비스 기획 
-- 간트차트
+- 간트 차트
 ![2차 간트차트](https://github.com/ZKSANC/SomsomTown/assets/114744493/1b2a6375-92dd-45ee-b02e-411b0ce5b74d)
 - ERD
 ![2차 erd](https://github.com/ZKSANC/SomsomTown/assets/114744493/a73fae22-f7e2-4f9a-a78a-693bae77b336)
