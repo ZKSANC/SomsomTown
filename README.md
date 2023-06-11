@@ -14,11 +14,11 @@
 - 각 페이지에서 데이터 조회, 추가, 수정, 삭제 및 검색 
 
 ## 담당 역할
-- 사이트 기획 및 프로젝트 전체 진행 주도
+- 거래처 관리 - 거래처 검색, 조회, 추가, 수정, 삭제 
+- 출하 현황 - 검색, 조회, 삭제, QR코드 출력, 엑셀파일 다운 
+- 생산실적 현황(공동 작업) - 검색, 조회
 - 담당 페이지 백엔드, 프론트엔드 개발
-- 기준정보 관리> 거래처 관리 - 거래처 검색, 조회, 추가, 수정, 삭제 
-- 영업 관리> 출하 현황 - 검색, 조회, 삭제, QR코드 출력, 엑셀파일 다운 
-- 생산 관리> 생산실적 현황 - 검색, 조회
+- 서비스 기획 및 프로젝트 전체 진행 주도
 
 ## 개발 환경
 - 언어 : Java (JDK 1.8), JavaScript ES6, HTML5/CSS3
@@ -35,17 +35,17 @@
 ![2차 erd](https://github.com/ZKSANC/HiBook/assets/114744493/89997c24-fbfb-4187-af3a-a879dcbdefe9)
 
 ## 개발 코드  
-#### 기준정보 관리> 거래처 관리 페이지
+#### 거래처 관리
 ![리드미 거래처 관리](https://github.com/ZKSANC/HiBook/assets/114744493/bdfd9d10-53b9-419c-887d-6de797024f4e)
 - Model [ClientDAO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/ClientDAO.java), [ClientDAOImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/ClientDAOImpl.java), [ClientDTO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/domain/ClientDTO.java), [ClientService](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/ClientService.java), [ClientServiceImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/ClientServiceImpl.java), [ClientMapper](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/resources/mappers/clientMapper.xml)
 - View [Client](https://github.com/ZKSANC/SomsomTown/tree/master/2Project_MES/src/main/webapp/WEB-INF/views/client)
 - Controller [ClientController](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/controller/ClientController.java)
-#### 영업 관리> 출하 현황 페이지 
+#### 출하 현황
 ![리드미 출하현황](https://github.com/ZKSANC/HiBook/assets/114744493/80b6f1b4-339f-4719-af1c-c6cadebe5b72)
 - Model [ShipDAO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/ShipDAO.java), [ShipDAOImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/ShipDAOImpl.java), [ShipDTO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/domain/ShipDTO.java), [ShipService](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/ShipService.java), [ShipServiceImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/ShipServiceImpl.java), [ShipMapper](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/resources/mappers/shipMapper.xml)
 - View [ShipCurrentInfo](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/webapp/WEB-INF/views/ship/shipCurrentInfo.jsp), [ClientSearchPop](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/webapp/WEB-INF/views/client/clientSearchPop.jsp), [ProductSearchPop](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/webapp/WEB-INF/views/product/productSearchPop.jsp)
 - Controller [ShipController](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/controller/ShipController.java)
-#### 생산 관리> 생산실적 현황 페이지 
+#### 생산실적 현황
 ![리드미 생산실적현황1](https://github.com/ZKSANC/HiBook/assets/114744493/82b13e5e-aa1e-451a-92ee-af9ffc88cd44)
 ![리드미 생산실적현황2](https://github.com/ZKSANC/HiBook/assets/114744493/b3f28b2b-f5cd-44cb-b142-9ef40c488574)
 - Model [PerformanceDAO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/PerformanceDAO.java), [PerformanceDAOImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/dao/PerformanceDAOImpl.java), [PerformanceDTO](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/domain/PerformanceDTO.java), [PerformanceService](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/PerformanceService.java), [PerformanceServiceImpl](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/java/com/project/service/PerformanceServiceImpl.java), [PerformanceMapper](https://github.com/ZKSANC/SomsomTown/blob/master/2Project_MES/src/main/resources/mappers/performanceMapper.xml)
