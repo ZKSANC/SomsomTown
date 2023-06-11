@@ -30,7 +30,7 @@
 
 ## 서비스 기획 
 - 간트 차트
-![2차 간트차트](https://github.com/ZKSANC/HiBook/assets/114744493/da5aadae-0d82-4170-9ace-3d23e351a823)
+![2차 간트차트 리드미용](https://github.com/ZKSANC/HiBook/assets/114744493/d7688152-5f70-4252-a071-d1d7766b3d6e)
 - ERD
 ![2차 erd](https://github.com/ZKSANC/HiBook/assets/114744493/89997c24-fbfb-4187-af3a-a879dcbdefe9)
 
